@@ -6,7 +6,7 @@
         $pas = $_POST['senha'];
 
         $logado = false;
-        $resultset = mysql_query("select * from Agente where username = '$log' and password = '$pas';");
+        $resultset = mysql_query("select * from agentes where login = '$log' and senha = '$pas';");
 
         while($row = mysql_fetch_array($resultset, MYSQL_BOTH)){
              $logado = true;
@@ -16,7 +16,7 @@
     if($logado){
         session_start();
         $_SESSION['auth'] = true;
-        header("LOCATION: principal.php?msg=Logado!");
+        header("LOCATION: principal.php");
     }else{
         header("LOCATION: index.php?msg=Falha no login, tente novamente!");
     }

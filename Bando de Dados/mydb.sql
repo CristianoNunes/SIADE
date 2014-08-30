@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Tempo de geração: 30/08/2014 às 23:26
+-- Tempo de geração: 31/08/2014 às 00:04
 -- Versão do servidor: 5.6.16
 -- Versão do PHP: 5.5.11
 
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS `agentes` (
   `telefone` varchar(45) NOT NULL,
   `celular` varchar(45) DEFAULT NULL,
   `sexo` varchar(45) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `login` varchar(50) NOT NULL,
+  `senha` varchar(255) NOT NULL,
   `Nivel_IdNivel` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Agente_Campanha1_idx` (`Campanha_idCampanha`),
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `agentes` (
 -- Fazendo dump de dados para tabela `agentes`
 --
 
-INSERT INTO `agentes` (`id`, `Campanha_idCampanha`, `barra`, `nome`, `telefone`, `celular`, `sexo`, `username`, `password`, `Nivel_IdNivel`) VALUES
+INSERT INTO `agentes` (`id`, `Campanha_idCampanha`, `barra`, `nome`, `telefone`, `celular`, `sexo`, `login`, `senha`, `Nivel_IdNivel`) VALUES
 (1, 1, 'AG-01', 'Cristiano Nunessss', '892630', '9472097907', 'masculino', 'cristiano', '123', 1),
 (4, 1, 'ag-05', 'cris', '999999', '888888', 'masculino', 'CRISTIANONUNES', 'samsung', 1);
 
