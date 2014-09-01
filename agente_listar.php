@@ -24,33 +24,6 @@
 </head>
 
 <body>
-    <?php session_start(); 
-            if(isset($_SESSION['auth'])){
-                include 'conecta.php';
-
-        
-
-        }else{
-                session_destroy();
-                header("LOCATION:index.php?msg=Sessão expirou...");
-        }
-
-            if(isset($_GET['msg'])){
-                echo $_GET['msg'];
-        }
-
-         if(isset($_POST['adicionar'])){
-            $sql ="insert into Usuario(id, login, senha) values(".$_POST['id'].",'".$_POST['login']."','".$_POST['senha']."');";
-
-        $result = mysql_query($sql) or die("Falha ao adicionar: " . mysql_error());
-    
-    
-        if(isset($result)){
-        header("LOCATION:logado.php?msg='Usuario adicionado com sucesso!'");
-        }
-        }
-    ?>
-
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -61,7 +34,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="principal.html">SIADE</a>
+                <a class="navbar-brand" href="principal.php">SIADE</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -74,7 +47,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil</a>
                         </li>
-                        <li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        <li><a href="configuracoes.php"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
@@ -93,37 +66,37 @@
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="agente.html">Agente</a>
+                                    <a href="agente_listar.php">Agente</a>
                                 </li>
                                 <li>
-                                    <a href="bairro.html">Bairro</a>
+                                    <a href="bairro.php">Bairro</a>
                                 </li>
                                 <li>
-                                    <a href="quadra.html">Quadra</a>
+                                    <a href="quadra.php">Quadra</a>
                                 </li>
                                 <li>
-                                    <a href="imovel.html">Imóvel</a>
+                                    <a href="imovel.php">Imóvel</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.html"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="d1.html">D1</a>
+                                    <a href="d1.php">D1</a>
                                 </li>
                                 <li>
-                                    <a href="d7.html">D7</a>
+                                    <a href="d7.php">D7</a>
                                 </li>
                                 <li>
-                                    <a href="ciclo.html">Ciclo</a>
+                                    <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.html">Pendentes</a>
+                                    <a href="pendentes.php">Pendentes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -140,59 +113,47 @@
     <!-- /#wrapper -->
     <div id="page-wrapper">
         <br />
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Cadastro de Agente
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>Nome</label>
-                                            <input class="form-control">
-                                            <label>Campanha</label>
-                                            <select class="form-control">
-                                                <option>Dengue</option>
-                                            </select>
-                                            <label>Barra</label>
-                                            <input class="form-control">
-                                            <label>Telefone</label>
-                                            <input class="form-control">
-                                            <label>Celular</label>
-                                            <input class="form-control">
-                                            <label>Sexo</label>
-                                            <select class="form-control">
-                                                <option>Masculino</option>
-                                                <option>Feminino</option>
-                                            </select>
-                                            <label>Login</label>
-                                            <input class="form-control">
-                                            <label>Senha</label>
-                                            <input type="password" class="form-control">
-                                            <label>Nível</label>
-                                            <select class="form-control">
-                                                <option>Agente</option>
-                                                <option>Supervisor</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
+        <div class="row">
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                Lista de Agentes
             </div>
-            <!-- /.row -->
+            <div class="panel-body">
+                <div class="table-responsive">
+        <?php 
+            include('conecta.php'); 
+            echo "<table class='table table-striped'>"; 
+            echo "<tr>"; 
+            echo "<td><b>Campanha</b></td>"; 
+            echo "<td><b>Barra</b></td>"; 
+            echo "<td><b>Nome</b></td>"; 
+            echo "<td><b>Telefone</b></td>"; 
+            echo "<td><b>Celular</b></td>"; 
+            echo "<td><b>Login</b></td>"; 
+            echo "<td><b>Nivel</b></td>"; 
+            echo "</tr>"; 
+            $result = mysql_query("SELECT * FROM `agentes`") or trigger_error(mysql_error()); 
+            while($row = mysql_fetch_array($result)){ 
+            foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+            echo "<tr>";  
+              
+            echo "<td valign='top'>" . nl2br( $row['Campanha_idCampanha']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['barra']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['nome']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['telefone']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['celular']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['login']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['Nivel_IdNivel']) . "</td>";  
+            echo "<td valign='top'><a class='btn btn-warning' href=agente_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=agente_deletar.php?id={$row['id']}>Excluir</a></td> "; 
+            echo "</tr>"; 
+            } 
+            echo "</table>"; 
+        ?>
+        <a href="agente.php" class="btn btn-success">Adicionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Core Scripts - Include with every page -->
@@ -209,7 +170,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-
+    
 </body>
 
 </html>
