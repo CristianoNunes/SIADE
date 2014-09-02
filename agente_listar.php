@@ -131,6 +131,8 @@
             echo "<td><b>Celular</b></td>"; 
             echo "<td><b>Login</b></td>"; 
             echo "<td><b>Nivel</b></td>"; 
+            echo "<td></td>"; 
+            echo "<td></td>";
             echo "</tr>"; 
             $result = mysql_query("SELECT * FROM `agentes`") or trigger_error(mysql_error()); 
             while($row = mysql_fetch_array($result)){ 

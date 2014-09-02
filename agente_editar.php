@@ -137,7 +137,7 @@
                 <p><b>Nome:</b><br /><input type='text' name='nome' value='<?= stripslashes($row['nome']) ?>' /> 
                 <p><b>Telefone:</b><br /><input type='text' name='telefone' value='<?= stripslashes($row['telefone']) ?>' /> 
                 <p><b>Celular:</b><br /><input type='text' name='celular' value='<?= stripslashes($row['celular']) ?>' /> 
-                <p><b>Sexo:</b><br /><input type='text' name='sexo' value='<?= stripslashes($row['sexo']) ?>' /> 
+                <p><b>Sexo:</b><br /><input type='radio' name='sexo' value='masculino'/> Masculino <input type='radio' name='sexo' value='feminino'/> Feminino
                 <p><b>Login:</b><br /><input type='text' name='login' value='<?= stripslashes($row['login']) ?>' /> 
                 <p><b>Senha:</b><br /><input type='text' name='senha' value='<?= stripslashes($row['senha']) ?>' /> 
                 <p><b>Nivel IdNivel:</b><br /><input type='text' name='Nivel_IdNivel' value='<?= stripslashes($row['Nivel_IdNivel']) ?>' /> 

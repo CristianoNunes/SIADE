@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Tempo de geração: 31/08/2014 às 00:04
+-- Tempo de geração: 02/09/2014 às 16:59
 -- Versão do servidor: 5.6.16
 -- Versão do PHP: 5.5.11
 
@@ -40,15 +40,15 @@ CREATE TABLE IF NOT EXISTS `agentes` (
   PRIMARY KEY (`id`),
   KEY `fk_Agente_Campanha1_idx` (`Campanha_idCampanha`),
   KEY `fk_Agente_Nivel1_idx` (`Nivel_IdNivel`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Fazendo dump de dados para tabela `agentes`
 --
 
 INSERT INTO `agentes` (`id`, `Campanha_idCampanha`, `barra`, `nome`, `telefone`, `celular`, `sexo`, `login`, `senha`, `Nivel_IdNivel`) VALUES
-(1, 1, 'AG-01', 'Cristiano Nunessss', '892630', '9472097907', 'masculino', 'cristiano', '123', 1),
-(4, 1, 'ag-05', 'cris', '999999', '888888', 'masculino', 'CRISTIANONUNES', 'samsung', 1);
+(1, 1, 'AG-01', 'Cristiano Nunes', '892630', '9472097907', 'masculino', 'cristiano', '123', 1),
+(8, 1, 'Ag24', 'Wande', '1111fge', '2222', 'masculino', 'wander', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -333,29 +333,6 @@ CREATE TABLE IF NOT EXISTS `tratamentos` (
   KEY `fk_Tratamento_Visita1_idx` (`idTratamento`),
   KEY `fk_Tratamento_TipoLarvicida1_idx` (`TipoLarvicida_idTIpoLarvicida`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `users`
---
-
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `role` varchar(20) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `modified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-
---
--- Fazendo dump de dados para tabela `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `role`, `created`, `modified`) VALUES
-(7, 'lucas', '3f5b96b5f1727f084c07627f186480ebfd6b6f51', 'admin', '2014-08-21 02:51:31', '2014-08-21 02:51:31');
 
 -- --------------------------------------------------------
 

@@ -34,7 +34,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="principal.html">SIADE</a>
+                <a class="navbar-brand" href="principal.php">SIADE</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -112,48 +112,25 @@
     </div>
     <!-- /#wrapper -->
     <div id="page-wrapper">
-        <br />
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Cadastro de Agente
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form" action='agente_adicionar.php' method='POST'>
-                                        <div class="form-group">
-                                            <form > 
-                                                <p><b>Campanha:</b><br /><input type='text' name='Campanha_idCampanha'/> 
-                                                <p><b>Barra:</b><br /><input type='text' name='barra'/> 
-                                                <p><b>Nome:</b><br /><input type='text' name='nome'/> 
-                                                <p><b>Telefone:</b><br /><input type='text' name='telefone'/> 
-                                                <p><b>Celular:</b><br /><input type='text' name='celular'/> 
-                                                <p><b>Sexo:</b><br /><input type='radio' name='sexo' value='masculino'/> Masculino <input type='radio' name='sexo' value='feminino'/> Feminino
-                                                <p><b>Login:</b><br /><input type='text' name='login'/> 
-                                                <p><b>Senha:</b><br /><input type='password' name='senha'/> 
-                                                <p><b>Nivel:</b><br /><input type='text' name='Nivel_IdNivel'/> <br /> <br />
-                                                <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
-                                        </div>
-                                        
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-
-
-    
+        <? 
+			include('conecta.php'); 
+			echo "<table border=1 >"; 
+			echo "<tr>"; 
+			echo "<td><b>Agente Id</b></td>"; 
+			echo "<td><b>Ciclo Idciclo</b></td>"; 
+			echo "</tr>"; 
+			$result = mysql_query("SELECT * FROM `agentes_has_ciclos`") or trigger_error(mysql_error()); 
+			while($row = mysql_fetch_array($result)){ 
+			foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+			echo "<tr>";  
+			echo "<td valign='top'>" . nl2br( $row['Agente_id']) . "</td>";  
+			echo "<td valign='top'>" . nl2br( $row['Ciclo_idciclo']) . "</td>";  
+			echo "<td valign='top'><a href=edit.php?id={$row['id']}>Edit</a></td><td><a href=delete.php?id={$row['id']}>Delete</a></td> "; 
+			echo "</tr>"; 
+			} 
+			echo "</table>"; 
+			echo "<a href=new.php>New Row</a>"; 
+		?>
     </div>
 
     <!-- Core Scripts - Include with every page -->
@@ -170,7 +147,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-
+    
 </body>
 
 </html>

@@ -69,7 +69,7 @@
                                     <a href="agente_listar.php">Agente</a>
                                 </li>
                                 <li>
-                                    <a href="bairro.php">Bairro</a>
+                                    <a href="bairro_listar.php">Bairro</a>
                                 </li>
                                 <li>
                                     <a href="quadra.php">Quadra</a>
