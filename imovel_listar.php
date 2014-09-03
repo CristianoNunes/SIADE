@@ -31,7 +31,7 @@
         session_destroy();
         header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
     }
-    ?>
+  ?>
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -121,52 +121,54 @@
 
 
     </div>
-    <!--conteudocentral -->
+    <!-- /#wrapper -->
     <div id="page-wrapper">
-            <br />
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Relatório de Pendentes
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>Agentes</label>
-                                            <select class="form-control">
-                                                <option>Cristiano Nunes</option>
-                                                <option>Diego Oliveira</option>
-                                                <option>Felipe Tomaz</option>
-                                                <option>Geraldo Lopes</option>
-                                                <option>Djalma Medeiros</option>
-                                            </select>
-                                            <label>Data</label>
-                                            <input class="form-control">
-                                            <label>Semana</label>
-                                            <input class="form-control">
-                                            <label>Ciclo</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Procurar</button>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
+        <br />
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    Lista de Imóveis
                 </div>
-                <!-- /.col-lg-12 -->
+            <div class="panel-body">
+                <div class="table-responsive">
+        <? 
+            include('conecta.php'); 
+            echo "<table class='table table-striped'>"; 
+            echo "<tr>";
+            echo "<td><b>Quadra IdQuadra</b></td>";
+            echo "<td><b>Ladoquadra</b></td>";
+            echo "<td><b>Rua Id</b></td>";
+            echo "<td><b>Numero Imovel</b></td>";
+            echo "<td><b>IdTipoImovel</b></td>";
+            echo "<td><b>Quantidade Habitantes</b></td>"; 
+            echo "<td><b>Quantidade Cães</b></td>"; 
+            echo "<td><b>Quantidade Gatos</b></td>";   
+            echo "<td></td>";
+            echo "<td></td>";
+            echo "</tr>"; 
+            $result = mysql_query("SELECT * FROM `imovel`") or trigger_error(mysql_error()); 
+            while($row = mysql_fetch_array($result)){ 
+            foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+            echo "<tr>";
+            echo "<td valign='top'>" . nl2br( $row['Quadra_idQuadra']) . "</td>";
+            echo "<td valign='top'>" . nl2br( $row['ladoquadra']) . "</td>";
+            echo "<td valign='top'>" . nl2br( $row['Rua_id']) . "</td>";
+            echo "<td valign='top'>" . nl2br( $row['numero_imovel']) . "</td>";
+            echo "<td valign='top'>" . nl2br( $row['idTipoImovel']) . "</td>"; 
+            echo "<td valign='top'>" . nl2br( $row['quantidade_habitantes']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['quantidade_caes']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['quantidade_gatos']) . "</td>";   
+            echo "<td valign='top'><a class='btn btn-warning' href=imovel_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=imovel_deletar.php?id={$row['id']}>Delete</a></td> "; 
+            echo "</tr>"; 
+            } 
+            echo "</table>"; 
+            ?>
+             <a href="imovel.php" class="btn btn-success">Adicionar</a>
+                    </div>
+                </div>
             </div>
-            <!-- /.row -->
+        </div>
     </div>
-        <!-- /conteudocentral -->
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
@@ -182,7 +184,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-
+    
 </body>
 
 </html>

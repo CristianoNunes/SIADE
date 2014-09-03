@@ -24,6 +24,14 @@
 </head>
 
 <body>
+    <?php session_start(); 
+    if(isset($_SESSION['auth'])){
+        include 'conecta.php';
+    }else{
+        session_destroy();
+        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+    }
+    ?>
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -77,6 +85,9 @@
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
                                 </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -125,19 +136,17 @@
                                 <div class="col-lg-6">
                                     <form role="form" action='agente_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <form > 
-                                                <p><b>Campanha:</b><br /><input type='text' name='Campanha_idCampanha'/> 
-                                                <p><b>Barra:</b><br /><input type='text' name='barra'/> 
-                                                <p><b>Nome:</b><br /><input type='text' name='nome'/> 
-                                                <p><b>Telefone:</b><br /><input type='text' name='telefone'/> 
-                                                <p><b>Celular:</b><br /><input type='text' name='celular'/> 
-                                                <p><b>Sexo:</b><br /><input type='radio' name='sexo' value='masculino'/> Masculino <input type='radio' name='sexo' value='feminino'/> Feminino
-                                                <p><b>Login:</b><br /><input type='text' name='login'/> 
-                                                <p><b>Senha:</b><br /><input type='password' name='senha'/> 
-                                                <p><b>Nivel:</b><br /><input type='text' name='Nivel_IdNivel'/> <br /> <br />
-                                                <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
+                                            <p><b>Campanha:</b><br /><input type='text' name='Campanha_idCampanha'/> 
+                                            <p><b>Barra:</b><br /><input type='text' name='barra'/> 
+                                            <p><b>Nome:</b><br /><input type='text' name='nome'/> 
+                                            <p><b>Telefone:</b><br /><input type='text' name='telefone'/> 
+                                            <p><b>Celular:</b><br /><input type='text' name='celular'/> 
+                                            <p><b>Sexo:</b><br /><input type='radio' name='sexo' value='masculino'/> Masculino <input type='radio' name='sexo' value='feminino'/> Feminino
+                                            <p><b>Login:</b><br /><input type='text' name='login'/> 
+                                            <p><b>Senha:</b><br /><input type='password' name='senha'/> 
+                                            <p><b>Nivel:</b><br /><input type='text' name='Nivel_IdNivel'/> <br /> <br />
+                                            <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
                                         </div>
-                                        
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

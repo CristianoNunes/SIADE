@@ -24,6 +24,14 @@
 </head>
 
 <body>
+    <?php session_start(); 
+    if(isset($_SESSION['auth'])){
+        include 'conecta.php';
+    }else{
+        session_destroy();
+        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+    }
+    ?>
 
     <div id="wrapper">
 
@@ -51,7 +59,7 @@
                         <li><a href="configuracoes.php"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -70,13 +78,16 @@
                                     <a href="agente_listar.php">Agente</a>
                                 </li>
                                 <li>
-                                    <a href="bairro.php">Bairro</a>
+                                    <a href="bairro_listar.php">Bairro</a>
                                 </li>
                                 <li>
-                                    <a href="quadra.php">Quadra</a>
+                                    <a href="quadra_listar.php">Quadra</a>
                                 </li>
                                 <li>
-                                    <a href="imovel.php">Imóvel</a>
+                                    <a href="imovel_listar.php">Imóvel</a>
+                                </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -124,13 +135,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action='bairro_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <label>Nome</label>
-                                            <input class="form-control">
+                                            <p><b>Nome:</b><br /><input type='text' name='nome_bairro'/>
                                             <p class="help-block">Exemplo: Centro</p>
                                         </div>
-                                        <button type="submit" class="btn btn-success">Salvar</button>
+                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

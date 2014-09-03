@@ -26,6 +26,14 @@
 </head>
 
 <body>
+    <?php session_start(); 
+    if(isset($_SESSION['auth'])){
+        include 'conecta.php';
+    }else{
+        session_destroy();
+        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+    }
+    ?>
 
     <div id="wrapper">
 
@@ -53,7 +61,7 @@
                         <li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -69,13 +77,19 @@
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="bairro.html">Bairro</a>
+                                    <a href="agente_listar.php">Agente</a>
                                 </li>
                                 <li>
-                                    <a href="quadra.html">Quadra</a>
+                                    <a href="bairro_listar.php">Bairro</a>
                                 </li>
                                 <li>
-                                    <a href="imovel.html">Imóvel</a>
+                                    <a href="quadra_listar.php">Quadra</a>
+                                </li>
+                                <li>
+                                    <a href="imovel_listar.php">Imóvel</a>
+                                </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -87,16 +101,16 @@
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="d1.html">D1</a>
+                                    <a href="d1.php">D1</a>
                                 </li>
                                 <li>
-                                    <a href="d7.html">D7</a>
+                                    <a href="d7.php">D7</a>
                                 </li>
                                 <li>
-                                    <a href="ciclo.html">Ciclo</a>
+                                    <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.html">Pendentes</a>
+                                    <a href="pendentes.php">Pendentes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -121,52 +121,34 @@
 
 
     </div>
-    <!--conteudocentral -->
+    <!-- /#wrapper -->
     <div id="page-wrapper">
-            <br />
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Relatório de Pendentes
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>Agentes</label>
-                                            <select class="form-control">
-                                                <option>Cristiano Nunes</option>
-                                                <option>Diego Oliveira</option>
-                                                <option>Felipe Tomaz</option>
-                                                <option>Geraldo Lopes</option>
-                                                <option>Djalma Medeiros</option>
-                                            </select>
-                                            <label>Data</label>
-                                            <input class="form-control">
-                                            <label>Semana</label>
-                                            <input class="form-control">
-                                            <label>Ciclo</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Procurar</button>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
+    	<br />
+    	<div class="panel panel-default">
+    		<div class="panel panel-heading">
+    			Editar
+    		</div>
+            <?php 
+                include('conecta.php'); 
+                if (isset($_GET['id']) ) { 
+                $id = (int) $_GET['id']; 
+                if (isset($_POST['submitted'])) { 
+                foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
+                $sql = "UPDATE `bairros` SET  `nome_bairro` =  '{$_POST['nome_bairro']}'   WHERE `id` = '$id' "; 
+                mysql_query($sql) or die(mysql_error()); 
+                echo (mysql_affected_rows()) ? "Alteração Salva com Sucesso.<br />" : "Erro ao salvar. <br />"; 
+                echo "<a href='bairro_listar.php'>Voltar para Lista</a>";
+                } 
+                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `bairros` WHERE `id` = '$id' ")); 
+            ?>
+
+                <form action='' method='POST'> 
+                <p><b>Nome:</b><br /><input type='text' name='nome_bairro' value='<?= stripslashes($row['nome_bairro']) ?>' /> 
+                <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
+                </form> 
+                <?php } ?> 
+        </div>
     </div>
-        <!-- /conteudocentral -->
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
@@ -182,7 +164,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-
+    
 </body>
 
 </html>

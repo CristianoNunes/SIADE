@@ -10,6 +10,7 @@
 
     <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
     
+    
     <!-- Core CSS - Include with every page -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -24,7 +25,7 @@
 </head>
 
 <body>
-    <?php session_start(); 
+   <?php session_start(); 
     if(isset($_SESSION['auth'])){
         include 'conecta.php';
     }else{
@@ -55,7 +56,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil</a>
                         </li>
-                        <li><a href="configuracoes.php"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        <li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
@@ -92,22 +93,22 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.html"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="d1.php">D1</a>
+                                    <a href="d1.html">D1</a>
                                 </li>
                                 <li>
-                                    <a href="d7.php">D7</a>
+                                    <a href="d7.html">D7</a>
                                 </li>
                                 <li>
-                                    <a href="ciclo.php">Ciclo</a>
+                                    <a href="ciclo.html">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="pendentes.html">Pendentes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -129,29 +130,31 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Relatório de Pendentes
+                            Configurações
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <form role="form">
                                         <div class="form-group">
-                                            <label>Agentes</label>
+                                            <label>Estado</label>
                                             <select class="form-control">
-                                                <option>Cristiano Nunes</option>
-                                                <option>Diego Oliveira</option>
-                                                <option>Felipe Tomaz</option>
-                                                <option>Geraldo Lopes</option>
-                                                <option>Djalma Medeiros</option>
+                                                <option>RN</option>
+                                                <option>RS</option>
+                                                <option>CE</option>
+                                                <option>PB</option>
+                                                <option>MA</option>
                                             </select>
-                                            <label>Data</label>
-                                            <input class="form-control">
-                                            <label>Semana</label>
-                                            <input class="form-control">
-                                            <label>Ciclo</label>
-                                            <input class="form-control">
+                                            <label>Cidades</label>
+                                            <select class="form-control">
+                                                <option>Pau dos Ferros</option>
+                                                <option>São Miguel</option>
+                                                <option>Encanto</option>
+                                                <option>Doutor Severiano</option>
+                                                <option>Severiano Melo</option>
+                                            </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Procurar</button>
+                                        <button type="submit" class="btn btn-success">Salvar</button>
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

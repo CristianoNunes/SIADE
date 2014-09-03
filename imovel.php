@@ -24,6 +24,14 @@
 </head>
 
 <body>
+    <?php session_start(); 
+    if(isset($_SESSION['auth'])){
+        include 'conecta.php';
+    }else{
+        session_destroy();
+        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+    }
+    ?>
 
     <div id="wrapper">
 
@@ -51,7 +59,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -70,13 +78,16 @@
                                     <a href="agente_listar.php">Agente</a>
                                 </li>
                                 <li>
-                                    <a href="bairro.php">Bairro</a>
+                                    <a href="bairro_listar.php">Bairro</a>
                                 </li>
                                 <li>
-                                    <a href="quadra.php">Quadra</a>
+                                    <a href="quadra_listar.php">Quadra</a>
                                 </li>
                                 <li>
-                                    <a href="imovel.php">Imóvel</a>
+                                    <a href="imovel_listar.php">Imóvel</a>
+                                </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -125,68 +136,18 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action='imovel_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <label>Bairro</label>
-                                            <select class="form-control">
-                                                <option>Centro</option>
-                                                <option>São Judas</option>
-                                                <option>são Vicente</option>
-                                                <option>Nações Unidas</option>
-                                                <option>João XXIII</option>
-                                            </select>
-                                        </div>  
-                                        <div class="form-group">
-                                            <label>Quadra</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Lado</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <!-- /.panel-heading -->
-                                            <div class="panel-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Indice</th>
-                                                                <th>Endereço</th>
-                                                                <th>Número</th>
-                                                                <th>Seq.</th>
-                                                                <th>Tipo</th>   
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>R. Mano Marcelino</td>
-                                                                <td>100</td>
-                                                                <td></td>
-                                                                <td>C</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">+ Adicionar</button>
-                                                <!-- /.table-responsive -->
+                                            <p><b>Quadra IdQuadra:</b><br /><input type='text' name='Quadra_idQuadra'/> 
+                                            <p><b>Ladoquadra:</b><br /><input type='text' name='ladoquadra'/> 
+                                            <p><b>Rua Id:</b><br /><input type='text' name='Rua_id'/> 
+                                            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel'/> 
+                                            <p><b>IdTipoImovel:</b><br /><input type='text' name='idTipoImovel'/> 
+                                            <p><b>Quantidade Habitantes:</b><br /><input type='text' name='quantidade_habitantes'/> 
+                                            <p><b>Quantidade Caes:</b><br /><input type='text' name='quantidade_caes'/> 
+                                            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos'/>
                                             </div>
-                                            <!-- /.panel-body -->
-                                        </div>
-                                        <!-- /.panel -->
-                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -200,8 +161,7 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-    </div>
-    <!-- /#page-wrapper -->
+        </form> 
     </div>
 
     <!-- Core Scripts - Include with every page -->

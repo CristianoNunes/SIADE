@@ -8,8 +8,6 @@
 
     <title>Sistema Informatizado dos Agentes de Endemias</title>
 
-    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-    
     <!-- Core CSS - Include with every page -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -119,69 +117,44 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+        <div id="page-wrapper">
+           <?php 
+                include('conecta.php'); 
+                if (isset($_GET['id']) ) { 
+                $id = (int) $_GET['id']; 
+                if (isset($_POST['submitted'])) { 
+                foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
+                $sql = "UPDATE `quadras` SET  `idQuadra` =  '{$_POST['idQuadra']}' ,  `identificacao` =  '{$_POST['identificacao']}' ,  `idBairro` =  '{$_POST['idBairro']}'   WHERE `id` = '$id' "; 
+                mysql_query($sql) or die(mysql_error()); 
+                echo (mysql_affected_rows()) ? "Alteração Salva com Sucesso.<br />" : "Erro ao salvar. <br />"; 
+                echo "<a href='quadra_listar.php'>Voltar para Lista</a>";
+                } 
+                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `quadras` WHERE `id` = '$id' ")); 
+            ?>
 
-    </div>
-    <!--conteudocentral -->
-    <div id="page-wrapper">
-            <br />
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Relatório de Pendentes
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>Agentes</label>
-                                            <select class="form-control">
-                                                <option>Cristiano Nunes</option>
-                                                <option>Diego Oliveira</option>
-                                                <option>Felipe Tomaz</option>
-                                                <option>Geraldo Lopes</option>
-                                                <option>Djalma Medeiros</option>
-                                            </select>
-                                            <label>Data</label>
-                                            <input class="form-control">
-                                            <label>Semana</label>
-                                            <input class="form-control">
-                                            <label>Ciclo</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Procurar</button>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-    </div>
-        <!-- /conteudocentral -->
+                <form action='' method='POST'> 
+                <p><b>IdQuadra:</b><br /><input type='text' name='idQuadra' value='<?= stripslashes($row['idQuadra']) ?>' /> 
+                <p><b>Identificacao:</b><br /><input type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
+                <p><b>IdBairro:</b><br /><input type='text' name='idBairro' value='<?= stripslashes($row['idBairro']) ?>' /> 
+                <p><input type='submit' value='Edit Row' /><input type='hidden' value='1' name='submitted' /> 
+                </form> 
+                <?php } ?> 
+        
+
+        </div>
+    <!-- /#wrapper -->
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-    <!-- Page-Level Plugin Scripts - Dashboard -->
-    <script src="js/plugins/morris/raphael-2.1.0.min.js"></script>
-    <script src="js/plugins/morris/morris.js"></script>
+    <!-- Page-Level Plugin Scripts - Forms -->
 
     <!-- SB Admin Scripts - Include with every page -->
     <script src="js/sb-admin.js"></script>
 
-    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
-    <script src="js/demo/dashboard-demo.js"></script>
+    <!-- Page-Level Demo Scripts - Forms - Use for reference -->
 
 </body>
 

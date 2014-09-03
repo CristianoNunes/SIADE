@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Tempo de geração: 02/09/2014 às 16:59
+-- Tempo de geração: 04/09/2014 às 01:26
 -- Versão do servidor: 5.6.16
 -- Versão do PHP: 5.5.11
 
@@ -72,16 +72,16 @@ CREATE TABLE IF NOT EXISTS `agentes_has_ciclos` (
 
 CREATE TABLE IF NOT EXISTS `bairros` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_bairro` varchar(45) DEFAULT NULL,
+  `nome_bairro` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Fazendo dump de dados para tabela `bairros`
 --
 
 INSERT INTO `bairros` (`id`, `nome_bairro`) VALUES
-(1, 'Centro123');
+(1, 'Centro');
 
 -- --------------------------------------------------------
 
@@ -231,21 +231,19 @@ CREATE TABLE IF NOT EXISTS `Pesquisa` (
 
 CREATE TABLE IF NOT EXISTS `quadras` (
   `idQuadra` int(11) NOT NULL AUTO_INCREMENT,
-  `identificacao` varchar(20) DEFAULT NULL,
+  `identificacao` varchar(20) NOT NULL,
   `idBairro` int(11) NOT NULL,
-  `Agente_id` int(11) NOT NULL,
   PRIMARY KEY (`idQuadra`),
-  KEY `fk_quadras_bairros1` (`idBairro`),
-  KEY `fk_Quadra_Agente1_idx` (`Agente_id`)
+  KEY `fk_quadras_bairros1` (`idBairro`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Fazendo dump de dados para tabela `quadras`
 --
 
-INSERT INTO `quadras` (`idQuadra`, `identificacao`, `idBairro`, `Agente_id`) VALUES
-(1, '1', 1, 0),
-(2, '3', 1, 0);
+INSERT INTO `quadras` (`idQuadra`, `identificacao`, `idBairro`) VALUES
+(1, '1', 1),
+(2, '3', 1);
 
 -- --------------------------------------------------------
 
@@ -255,16 +253,17 @@ INSERT INTO `quadras` (`idQuadra`, `identificacao`, `idBairro`, `Agente_id`) VAL
 
 CREATE TABLE IF NOT EXISTS `ruas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_rua` varchar(60) DEFAULT NULL,
+  `nome_rua` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Fazendo dump de dados para tabela `ruas`
 --
 
 INSERT INTO `ruas` (`id`, `nome_rua`) VALUES
-(2, 'Independencia');
+(7, 'Teste123'),
+(8, 'Independencia');
 
 -- --------------------------------------------------------
 
@@ -291,6 +290,13 @@ CREATE TABLE IF NOT EXISTS `tipoimoveis` (
   `descricao` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idTipoImovel`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Fazendo dump de dados para tabela `tipoimoveis`
+--
+
+INSERT INTO `tipoimoveis` (`idTipoImovel`, `sigla`, `descricao`) VALUES
+(1, 'R', 'Residencia');
 
 -- --------------------------------------------------------
 

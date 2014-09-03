@@ -24,6 +24,14 @@
 </head>
 
 <body>
+    <?php session_start(); 
+    if(isset($_SESSION['auth'])){
+        include 'conecta.php';
+    }else{
+        session_destroy();
+        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+    }
+    ?>
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -69,13 +77,16 @@
                                     <a href="agente_listar.php">Agente</a>
                                 </li>
                                 <li>
-                                    <a href="bairro.php">Bairro</a>
+                                    <a href="bairro_listar.php">Bairro</a>
                                 </li>
                                 <li>
-                                    <a href="quadra.php">Quadra</a>
+                                    <a href="quadra_listar.php">Quadra</a>
                                 </li>
                                 <li>
-                                    <a href="imovel.php">Imóvel</a>
+                                    <a href="imovel_listar.php">Imóvel</a>
+                                </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -22,7 +22,14 @@
 </head>
 
 <body>
-
+    <?php session_start(); 
+    if(isset($_SESSION['auth'])){
+        include 'conecta.php';
+    }else{
+        session_destroy();
+        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+    }
+    ?>
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -33,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="principal.html">SIADE</a>
+                <a class="navbar-brand" href="principal.php">SIADE</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -46,10 +53,10 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil</a>
                         </li>
-                        <li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        <li><a href="configuracoes.php"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -65,34 +72,40 @@
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Cadastros<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="bairro.html">Bairro</a>
+                                    <a href="agente_listar.php">Agente</a>
                                 </li>
                                 <li>
-                                    <a href="quadra.html">Quadra</a>
+                                    <a href="bairro_listar.php">Bairro</a>
                                 </li>
                                 <li>
-                                    <a href="imovel.html">Imóvel</a>
+                                    <a href="quadra_listar.php">Quadra</a>
+                                </li>
+                                <li>
+                                    <a href="imovel_listar.php">Imóvel</a>
+                                </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.html"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="d1.html">D1</a>
+                                    <a href="d1.php">D1</a>
                                 </li>
                                 <li>
-                                    <a href="d7.html">D7</a>
+                                    <a href="d7.php">D7</a>
                                 </li>
                                 <li>
-                                    <a href="ciclo.html">Ciclo</a>
+                                    <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.html">Pendentes</a>
+                                    <a href="pendentes.php">Pendentes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -105,7 +118,7 @@
         </nav>
 
         <div id="page-wrapper">
-            <br />
+          <br />
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
@@ -116,188 +129,13 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action='agente_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <label>Bairro</label>
-                                            <select class="form-control">
-                                                <option>Centro</option>
-                                                <option>São Judas</option>
-                                                <option>são Vicente</option>
-                                                <option>Nações Unidas</option>
-                                                <option>João XXIII</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Número</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Quantidade de Lados</label>
-                                            <input class="form-control">
-                                        </div>
-                                        <div class="panel-body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#lado1" data-toggle="tab">Lado 1</a>
-                                </li>
-                                <li><a href="#lado2" data-toggle="tab">Lado 2</a>
-                                </li>
-                                <li><a href="#lado3" data-toggle="tab">Lado 3</a>
-                                </li>
-                                <li><a href="#lado4" data-toggle="tab">Lado 4</a>
-                                </li>
-                            </ul>
-
-                            <!-- Abas -->
-                            <div class="tab-content">
-                                <br />
-                                <div class="tab-pane fade" id="lado1">
-                                    <div class="panel panel-default">
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Indice</th>
-                                                            <th>Endereço</th>
-                                                            <th>Número</th>
-                                                            <th>Seq.</th>
-                                                            <th>Tipo</th>   
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">+ Adicionar</button>
-                                            <!-- /.table-responsive -->
-                                        </div>
-                                        <!-- /.panel-body -->
+                                            <p><b>IdQuadra:</b><br /><input type='text' name='idQuadra'/> 
+                                            <p><b>Identificacao:</b><br /><input type='text' name='identificacao'/> 
+                                            <p><b>IdBairro:</b><br /><input type='text' name='idBairro'/> <br /> <br />
+                                            <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' />
                                     </div>
-                                    <!-- /.panel -->
-                                </div>
-
-                                <div class="tab-pane fade in active" id="lado2">
-                                    <div class="panel panel-default">
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Indice</th>
-                                                            <th>Endereço</th>
-                                                            <th>Número</th>
-                                                            <th>Seq.</th>
-                                                            <th>Tipo</th>   
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>R. Independencia</td>
-                                                            <td>442</td>
-                                                            <td></td>
-                                                            <td>R</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>R.Independencia</td>
-                                                            <td>444</td>
-                                                            <td></td>
-                                                            <td>R</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>R.Independencia</td>
-                                                            <td>444</td>
-                                                            <td>101</td>
-                                                            <td>R</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>4</td>
-                                                            <td>R.Independencia</td>
-                                                            <td>444</td>
-                                                            <td>102</td>
-                                                            <td>R</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">+ Adicionar</button>
-                                            <!-- /.table-responsive -->
-                                        </div>
-                                        <!-- /.panel-body -->
-                                    </div>
-                                    <!-- /.panel -->
-                                </div>
-                                
-                                <div class="tab-pane fade" id="lado3">
-                                    <div class="panel panel-default">
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Indice</th>
-                                                            <th>Endereço</th>
-                                                            <th>Número</th>
-                                                            <th>Seq.</th>
-                                                            <th>Tipo</th>   
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">+ Adicionar</button>
-                                            <!-- /.table-responsive -->
-                                        </div>
-                                        <!-- /.panel-body -->
-                                    </div>
-                                    <!-- /.panel -->
-                                </div>
-                                <div class="tab-pane fade" id="lado4">
-                                    <div class="panel panel-default">
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Indice</th>
-                                                            <th>Endereço</th>
-                                                            <th>Número</th>
-                                                            <th>Seq.</th>
-                                                            <th>Tipo</th>   
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">+ Adicionar</button>
-                                            <!-- /.table-responsive -->
-                                        </div>
-                                        <!-- /.panel-body -->
-                                    </div>
-                                    <!-- /.panel -->
-                                </div>
-                            </div>
-                        </div>
-                                        
-                                        <button type="submit" class="btn btn-success">Salvar</button>
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -312,10 +150,7 @@
             </div>
             <!-- /.row -->
         </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
+         <!-- /#wrapper -->
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>

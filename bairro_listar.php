@@ -24,6 +24,14 @@
 </head>
 
 <body>
+    <?php session_start(); 
+    if(isset($_SESSION['auth'])){
+        include 'conecta.php';
+    }else{
+        session_destroy();
+        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+    }
+    ?>
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -77,6 +85,9 @@
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
                                 </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -112,25 +123,37 @@
     </div>
     <!-- /#wrapper -->
     <div id="page-wrapper">
-        <? 
-			include('conecta.php'); 
-			echo "<table border=1 >"; 
-			echo "<tr>"; 
-			echo "<td><b>Agente Id</b></td>"; 
-			echo "<td><b>Ciclo Idciclo</b></td>"; 
-			echo "</tr>"; 
-			$result = mysql_query("SELECT * FROM `agentes_has_ciclos`") or trigger_error(mysql_error()); 
-			while($row = mysql_fetch_array($result)){ 
-			foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-			echo "<tr>";  
-			echo "<td valign='top'>" . nl2br( $row['Agente_id']) . "</td>";  
-			echo "<td valign='top'>" . nl2br( $row['Ciclo_idciclo']) . "</td>";  
-			echo "<td valign='top'><a href=edit.php?id={$row['id']}>Edit</a></td><td><a href=delete.php?id={$row['id']}>Delete</a></td> "; 
-			echo "</tr>"; 
-			} 
-			echo "</table>"; 
-			echo "<a href=new.php>New Row</a>"; 
-		?>
+        <br />
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    Lista de Bairros
+                </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+        <?php 
+            include('conecta.php'); 
+            echo "<table class='table table-striped'>"; 
+            echo "<tr>"; 
+            echo "<td><b>Nome</b></td>";
+            echo "<td></td>"; 
+            echo "<td></td>";
+            echo "</tr>"; 
+            $result = mysql_query("SELECT * FROM `bairros`") or trigger_error(mysql_error()); 
+            while($row = mysql_fetch_array($result)){ 
+            foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+            echo "<tr>";  
+            echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";  
+            echo "<td valign='top'><a class='btn btn-warning' href=bairro_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=bairro_deletar.php?id={$row['id']}>Excluir</a></td> "; 
+            echo "</tr>"; 
+            } 
+            echo "</table>";
+        ?>
+        <a href="bairro.php" class="btn btn-success">Adicionar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Core Scripts - Include with every page -->
