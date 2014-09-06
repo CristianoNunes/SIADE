@@ -124,7 +124,7 @@
                 $id = (int) $_GET['id']; 
                 if (isset($_POST['submitted'])) { 
                 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                $sql = "UPDATE `quadras` SET  `idQuadra` =  '{$_POST['idQuadra']}' ,  `identificacao` =  '{$_POST['identificacao']}' ,  `idBairro` =  '{$_POST['idBairro']}'   WHERE `id` = '$id' "; 
+                $sql = "UPDATE `quadras` SET  `id` =  '{$_POST['idQuadra']}' ,  `identificacao` =  '{$_POST['identificacao']}' ,  `idBairro` =  '{$_POST['idBairro']}'   WHERE `id` = '$id' "; 
                 mysql_query($sql) or die(mysql_error()); 
                 echo (mysql_affected_rows()) ? "Alteração Salva com Sucesso.<br />" : "Erro ao salvar. <br />"; 
                 echo "<a href='quadra_listar.php'>Voltar para Lista</a>";
@@ -133,7 +133,7 @@
             ?>
 
                 <form action='' method='POST'> 
-                <p><b>IdQuadra:</b><br /><input type='text' name='idQuadra' value='<?= stripslashes($row['idQuadra']) ?>' /> 
+                <p><b>IdQuadra:</b><br /><input type='text' name='idQuadra' value='<?= stripslashes($row['id']) ?>' /> 
                 <p><b>Identificacao:</b><br /><input type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
                 <p><b>IdBairro:</b><br /><input type='text' name='idBairro' value='<?= stripslashes($row['idBairro']) ?>' /> 
                 <p><input type='submit' value='Edit Row' /><input type='hidden' value='1' name='submitted' /> 

@@ -129,11 +129,22 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action='agente_adicionar.php' method='POST'>
+                                    <form role="form" action='quadra_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <p><b>IdQuadra:</b><br /><input type='text' name='idQuadra'/> 
-                                            <p><b>Identificacao:</b><br /><input type='text' name='identificacao'/> 
-                                            <p><b>IdBairro:</b><br /><input type='text' name='idBairro'/> <br /> <br />
+                                            <p><b>Bairro:</b>
+                                            <select name="idBairro">
+                                            <?php
+                                                include('conecta.php');
+                                                $result = mysql_query("SELECT * FROM `bairros`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id'] ."'> ".  $row['nome_bairro'] ." </option>";
+                                                }
+
+                                            ?>
+                                            </select>
+                                            <p><b>Nº da Quadra:</b><br /><input type='text' name='identificacao'/> 
+                                            
                                             <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' />
                                     </div>
                                     </form>

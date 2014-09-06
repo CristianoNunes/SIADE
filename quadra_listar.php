@@ -135,26 +135,24 @@
                             include('conecta.php'); 
                             echo "<table class='table table-striped'>"; 
                             echo "<tr>"; 
-                            echo "<td><b>IdQuadra</b></td>"; 
-                            echo "<td><b>Identificacao</b></td>"; 
-                            echo "<td><b>IdBairro</b></td>";
+                            echo "<td><b>Bairro</b></td>";
+                            echo "<td><b>Nº da Quadra</b></td>"; 
                             echo "<td></td>"; 
                             echo "<td></td>";
                             echo "</tr>"; 
                             $result = mysql_query("SELECT * FROM `quadras`") or trigger_error(mysql_error()); 
                             while($row = mysql_fetch_array($result)){ 
                             foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-                            echo "<tr>";  
-                            echo "<td valign='top'>" . nl2br( $row['idQuadra']) . "</td>";  
-                            echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";  
+                            echo "<tr>";    
                             echo "<td valign='top'>" . nl2br( $row['idBairro']) . "</td>";  
+                            echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";  
                             echo "<td valign='top'><a class='btn btn-warning' href=quadra_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=quadra_deletar.php?id={$row['id']}>Excluir</a></td> "; 
                             echo "</tr>"; 
                             } 
                             echo "</table>"; 
             
                         ?>
-                        <a href="bairro.php" class="btn btn-success">Adicionar</a>
+                        <a href="quadra.php" class="btn btn-success">Adicionar</a>
                     </div>
                 </div>
             </div>
