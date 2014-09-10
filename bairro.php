@@ -137,6 +137,18 @@
                                 <div class="col-lg-6">
                                     <form role="form" action='bairro_adicionar.php' method='POST'>
                                         <div class="form-group">
+                                            <p><b>Cidade:</b>
+                                            <select name="idcidade">
+                                            <?php
+                                                include('conecta.php');
+                                                $result = mysql_query("SELECT * FROM `Cidade`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id'] ."'> ". $row['nome_cidade'] ." </option>";
+                                                }
+
+                                            ?>
+                                            </select>
                                             <p><b>Nome:</b><br /><input type='text' name='nome_bairro'/>
                                             <p class="help-block">Exemplo: Centro</p>
                                         </div>

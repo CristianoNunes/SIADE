@@ -128,25 +128,37 @@
     		<div class="panel panel-heading">
     			Editar
     		</div>
-            <?php 
+            <? 
                 include('conecta.php'); 
                 if (isset($_GET['id']) ) { 
                 $id = (int) $_GET['id']; 
                 if (isset($_POST['submitted'])) { 
                 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                $sql = "UPDATE `bairros` SET  `nome_bairro` =  '{$_POST['nome_bairro']}'   WHERE `id` = '$id' "; 
+                $sql = "UPDATE `bairros` SET  `idcidade` =  '{$_POST['idcidade']}' ,  `nome_bairro` =  '{$_POST['nome_bairro']}'   WHERE `id` = '$id' "; 
                 mysql_query($sql) or die(mysql_error()); 
-                echo (mysql_affected_rows()) ? "Alteração Salva com Sucesso.<br />" : "Erro ao salvar. <br />"; 
-                echo "<a href='bairro_listar.php'>Voltar para Lista</a>";
+                echo (mysql_affected_rows()) ? "Atualizado com sucesso!.<br />" : "Erro ao atualizar!. <br />"; 
+                echo "<a href='bairro_listar.php'>Voltar para lista</a>"; 
                 } 
                 $row = mysql_fetch_array ( mysql_query("SELECT * FROM `bairros` WHERE `id` = '$id' ")); 
-            ?>
+                ?>
 
-                <form action='' method='POST'> 
-                <p><b>Nome:</b><br /><input type='text' name='nome_bairro' value='<?= stripslashes($row['nome_bairro']) ?>' /> 
+                <form action='' method='POST'>
+                <p><b>Bairro:</b><br /><input type='text' name='nome_bairro' value='<?= stripslashes($row['nome_bairro']) ?>' /> 
+                <p><b>Cidade:</b>
+                    <select name="idcidade">
+                    <?php
+                        $result = mysql_query("SELECT * FROM `Cidade`") or trigger_error(mysql_error()); 
+                        while($row = mysql_fetch_array($result)){ 
+                            foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                echo "<option value='". stripslashes($row['id']) ."'> ". $row['nome_cidade'] ." </option>";
+                        }
+                    ?>
+                    </select>
+                
                 <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
                 </form> 
-                <?php } ?> 
+                <? } ?> 
+ 
         </div>
     </div>
 

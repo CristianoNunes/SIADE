@@ -128,8 +128,9 @@
     		<div class="panel panel-heading">
     			Editar
     		</div>
+            <form action='' method='POST'>
+            
             <?php 
-                include('conecta.php'); 
                 if (isset($_GET['id']) ) { 
                 $id = (int) $_GET['id']; 
                 if (isset($_POST['submitted'])) { 
@@ -142,8 +143,6 @@
                 $row = mysql_fetch_array ( mysql_query("SELECT * FROM `agentes` WHERE `id` = '$id' ")); 
                 ?>
 
-                <form action='' method='POST'> 
-                <p><b>Campanha IdCampanha:</b><br /><input type='text' name='Campanha_idCampanha' value='<?= stripslashes($row['Campanha_idCampanha']) ?>' /> 
                 <p><b>Barra:</b><br /><input type='text' name='barra' value='<?= stripslashes($row['barra']) ?>' /> 
                 <p><b>Nome:</b><br /><input type='text' name='nome' value='<?= stripslashes($row['nome']) ?>' /> 
                 <p><b>Telefone:</b><br /><input type='text' name='telefone' value='<?= stripslashes($row['telefone']) ?>' /> 
@@ -151,7 +150,28 @@
                 <p><b>Sexo:</b><br /><input type='radio' name='sexo' value='masculino'/> Masculino <input type='radio' name='sexo' value='feminino'/> Feminino
                 <p><b>Login:</b><br /><input type='text' name='login' value='<?= stripslashes($row['login']) ?>' /> 
                 <p><b>Senha:</b><br /><input type='text' name='senha' value='<?= stripslashes($row['senha']) ?>' /> 
-                <p><b>Nivel IdNivel:</b><br /><input type='text' name='Nivel_IdNivel' value='<?= stripslashes($row['Nivel_IdNivel']) ?>' /> 
+                <p><b>Nivel:</b><br />
+                    <select name="Nivel_IdNivel">
+                    <?php
+                    $result = mysql_query("SELECT * FROM `niveis`") or trigger_error(mysql_error()); 
+                    while($row = mysql_fetch_array($result)){ 
+                        foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                            echo "<option value='". $row['IdNivel'] ."'> ".  $row['Descricao'] ." </option>";
+                    }
+                    ?>
+                    </select>
+                <p><b>Campanha:</b>
+            <select name="Campanha_idCampanha">
+            <?php
+                include('conecta.php');
+                $result = mysql_query("SELECT * FROM `campanhas`") or trigger_error(mysql_error()); 
+                while($row = mysql_fetch_array($result)){ 
+                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                echo "<option value='". $row['idCampanha'] ."'> ". $row['descricao'] ." </option>";
+                                                }
+
+            ?>
+            </select>
                 <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
                 </form> 
                 <?php } ?> 
