@@ -42,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="principal.html">SIADE</a>
+                <a class="navbar-brand" href="principal.php">SIADE</a>
             </div>
             <!-- /.navbar-header -->
 

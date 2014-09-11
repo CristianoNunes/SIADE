@@ -18,7 +18,7 @@ USE `mydb` ;
 -- -----------------------------------------------------
 -- Table `mydb`.`Campanha`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Campanha` (
+CREATE TABLE IF NOT EXISTS `campanhas` (
   `idCampanha` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NULL,
   PRIMARY KEY (`idCampanha`))
@@ -28,7 +28,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Nivel`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Nivel` (
+CREATE TABLE IF NOT EXISTS `niveis` (
   `IdNivel` INT NOT NULL AUTO_INCREMENT,
   `Descricao` VARCHAR(45) NULL,
   PRIMARY KEY (`IdNivel`))
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`agentes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`agentes` (
+CREATE TABLE IF NOT EXISTS `agentes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `Campanha_idCampanha` INT NOT NULL,
   `barra` VARCHAR(45) NOT NULL,
@@ -46,8 +46,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`agentes` (
   `telefone` VARCHAR(45) NULL,
   `celular` VARCHAR(45) NULL,
   `sexo` VARCHAR(45) NOT NULL,
-  `Login` VARCHAR(45) NOT NULL,
-  `Senha` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(45) NOT NULL,
+  `senha` VARCHAR(45) NOT NULL,
   `Nivel_IdNivel` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Agente_Campanha1_idx` (`Campanha_idCampanha` ASC),
@@ -68,7 +68,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Estado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Estado` (
+CREATE TABLE IF NOT EXISTS `Estado` (
   `id` INT NOT NULL,
   `nome_estado` VARCHAR(45) NULL,
   `sigla` CHAR(2) NULL,
@@ -79,7 +79,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Cidade`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Cidade` (
+CREATE TABLE IF NOT EXISTS `Cidade` (
   `id` INT NOT NULL,
   `nome_cidade` VARCHAR(45) NULL,
   `idestado` INT NOT NULL,
@@ -96,7 +96,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`bairros`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`bairros` (
+CREATE TABLE IF NOT EXISTS `bairros` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idcidade` INT NOT NULL,
   `nome_bairro` VARCHAR(45) NULL,
@@ -113,7 +113,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`quadras`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`quadras` (
+CREATE TABLE IF NOT EXISTS `quadras` (
   `idQuadra` INT NOT NULL AUTO_INCREMENT,
   `identificacao` VARCHAR(20) NULL,
   `Agente_id` INT NOT NULL,
@@ -137,7 +137,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`TipoImovel`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TipoImovel` (
+CREATE TABLE IF NOT EXISTS `TipoImovel` (
   `idTipoImovel` INT NOT NULL AUTO_INCREMENT,
   `sigla` CHAR(2) NULL,
   `descricao` VARCHAR(45) NULL,
@@ -148,7 +148,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`rua`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`rua` (
+CREATE TABLE IF NOT EXISTS `rua` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome_rua` VARCHAR(60) NULL,
   PRIMARY KEY (`id`))
@@ -158,7 +158,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`imovel`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`imovel` (
+CREATE TABLE IF NOT EXISTS `imovel` (
   `idImovel` INT NOT NULL AUTO_INCREMENT,
   `quantidade_habitantes` INT NULL,
   `idTipoImovel` INT NOT NULL,
@@ -194,7 +194,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`TipoAtividade`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`TipoAtividade` (
+CREATE TABLE IF NOT EXISTS `TipoAtividade` (
   `idTipoAtividade` INT NOT NULL,
   `sigla` VARCHAR(4) NULL,
   `descricao` VARCHAR(45) NULL,
@@ -205,7 +205,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Visita`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Visita` (
+CREATE TABLE IF NOT EXISTS `Visita` (
   `id` INT NOT NULL,
   `idimovel` INT NOT NULL,
   `hora` TIME NULL,
@@ -234,7 +234,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Tratamento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Tratamento` (
+CREATE TABLE IF NOT EXISTS `Tratamento` (
   `quantidade_depositos_eliminados` INT NULL,
   `imovel_tratado` TINYINT(1) NULL,
   `quantidade_larvicida` FLOAT NULL,
@@ -253,7 +253,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Pesquisa`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Pesquisa` (
+CREATE TABLE IF NOT EXISTS `Pesquisa` (
   `A1` INT NULL COMMENT 'Caixa d\'agua',
   `A2` INT NULL COMMENT 'Outros depósitos de armazenamento de água (baixo).',
   `B` INT NULL COMMENT 'Pequenos depósitos móveis.',
