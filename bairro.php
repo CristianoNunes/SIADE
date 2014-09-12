@@ -138,13 +138,13 @@
                                     <form role="form" action='bairro_adicionar.php' method='POST'>
                                         <div class="form-group">
                                             <p><b>Cidade:</b>
-                                            <select name="idcidade">
+                                            <select name="cidade_id_cidade">
                                             <?php
                                                 include('conecta.php');
-                                                $result = mysql_query("SELECT * FROM `Cidade`") or trigger_error(mysql_error()); 
+                                                $result = mysql_query("SELECT * FROM `cidade`") or trigger_error(mysql_error()); 
                                                 while($row = mysql_fetch_array($result)){ 
                                                 foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                                                echo "<option value='". $row['id'] ."'> ". $row['nome_cidade'] ." </option>";
+                                                echo "<option value='". $row['id_cidade'] ."'> ". $row['nome_cidade'] ." </option>";
                                                 }
 
                                             ?>

@@ -134,31 +134,35 @@
         <? 
             include('conecta.php'); 
             echo "<table class='table table-striped'>"; 
-            echo "<tr>";
-            echo "<td><b>Quadra IdQuadra</b></td>";
-            echo "<td><b>Ladoquadra</b></td>";
-            echo "<td><b>Rua Id</b></td>";
-            echo "<td><b>Numero Imovel</b></td>";
-            echo "<td><b>IdTipoImovel</b></td>";
+            echo "<tr>"; 
+            echo "<td><b>Id Imovel</b></td>"; 
             echo "<td><b>Quantidade Habitantes</b></td>"; 
-            echo "<td><b>Quantidade Cães</b></td>"; 
-            echo "<td><b>Quantidade Gatos</b></td>";   
-            echo "<td></td>";
-            echo "<td></td>";
+            echo "<td><b>Quantidade Caes</b></td>"; 
+            echo "<td><b>Quantidade Gatos</b></td>"; 
+            echo "<td><b>Numero Imovel</b></td>"; 
+            echo "<td><b>Ladoquadra</b></td>"; 
+            echo "<td><b>Quadra Bairro Id</b></td>"; 
+            echo "<td><b>Quadra Id Quadra</b></td>"; 
+            echo "<td><b>Quadra Bairro Id Bairro</b></td>"; 
+            echo "<td><b>Rua Id Rua</b></td>"; 
+            echo "<td><b>Tipo Imovel Id Tipo Imovel</b></td>"; 
             echo "</tr>"; 
             $result = mysql_query("SELECT * FROM `imovel`") or trigger_error(mysql_error()); 
             while($row = mysql_fetch_array($result)){ 
             foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-            echo "<tr>";
-            echo "<td valign='top'>" . nl2br( $row['Quadra_idQuadra']) . "</td>";
-            echo "<td valign='top'>" . nl2br( $row['ladoquadra']) . "</td>";
-            echo "<td valign='top'>" . nl2br( $row['Rua_id']) . "</td>";
-            echo "<td valign='top'>" . nl2br( $row['numero_imovel']) . "</td>";
-            echo "<td valign='top'>" . nl2br( $row['idTipoImovel']) . "</td>"; 
+            echo "<tr>";  
+            echo "<td valign='top'>" . nl2br( $row['id_imovel']) . "</td>";  
             echo "<td valign='top'>" . nl2br( $row['quantidade_habitantes']) . "</td>";  
             echo "<td valign='top'>" . nl2br( $row['quantidade_caes']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['quantidade_gatos']) . "</td>";   
-            echo "<td valign='top'><a class='btn btn-warning' href=imovel_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=imovel_deletar.php?id={$row['id']}>Delete</a></td> "; 
+            echo "<td valign='top'>" . nl2br( $row['quantidade_gatos']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['numero_imovel']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['ladoquadra']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['Quadra_Bairro_id']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['quadra_id_quadra']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['quadra_bairro_id_bairro']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['rua_id_rua']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['tipo_imovel_id_tipo_imovel']) . "</td>";  
+            echo "<td valign='top'><a href=imovel_editar.php?id_imovel={$row['id_imovel']}>Edit</a></td><td><a href=imovel_deletar.php?id_imovel={$row['id_imovel']}>Delete</a></td> "; 
             echo "</tr>"; 
             } 
             echo "</table>"; 

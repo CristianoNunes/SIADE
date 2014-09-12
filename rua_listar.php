@@ -131,24 +131,24 @@
                 </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                <? 
-					include('conecta.php'); 
-					echo "<table class='table table-striped' >"; 
-					echo "<tr>"; 
-					echo "<td><b>Nome</b></td>";
-                    echo "<td></td>"; 
+                <?php 
+                    include('conecta.php'); 
+                    echo "<table class='table table-striped' >"; 
+                    echo "<tr>"; 
+                    echo "<td><b>Rua</b></td>";
                     echo "<td></td>";
-					echo "</tr>"; 
-					$result = mysql_query("SELECT * FROM `ruas`") or trigger_error(mysql_error()); 
-					while($row = mysql_fetch_array($result)){ 
-					foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-					echo "<tr>";    
-					echo "<td valign='top'>" . nl2br( $row['nome_rua']) . "</td>";  
-					echo "<td valign='top'><a class='btn btn-warning' href=rua_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=rua_deletar.php?id={$row['id']}>Excluir</a></td> ";  
-					echo "</tr>"; 
-					} 
-					echo "</table>";  
-				?>
+                    echo "<td></td>";
+                    echo "</tr>"; 
+                    $result = mysql_query("SELECT * FROM `rua`") or trigger_error(mysql_error()); 
+                    while($row = mysql_fetch_array($result)){ 
+                    foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+                    echo "<tr>";    
+                    echo "<td valign='top'>" . nl2br( $row['descricao']) . "</td>";  
+                    echo "<td valign='top'><a class='btn btn-warning' href=rua_editar.php?id_rua={$row['id_rua']}>Editar</a></td><td><a class='btn btn-danger' href=rua_deletar.php?id_rua={$row['id_rua']}>Excluir</a></td> "; 
+                    echo "</tr>"; 
+                    } 
+                    echo "</table>";  
+                ?>
         			<a href="rua.php" class="btn btn-success">Adicionar</a>
                     </div>
                 </div>

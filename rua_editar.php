@@ -131,21 +131,21 @@
             </div>
         <?php 
             include('conecta.php'); 
-            if (isset($_GET['id']) ) { 
-            $id = (int) $_GET['id']; 
+            if (isset($_GET['id_rua']) ) { 
+            $id_rua = (int) $_GET['id_rua']; 
             if (isset($_POST['submitted'])) { 
             foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-            $sql = "UPDATE `ruas` SET  `nome_rua` =  '{$_POST['nome_rua']}'   WHERE `id` = '$id' "; 
+            $sql = "UPDATE `rua` SET  `descricao` =  '{$_POST['descricao']}'   WHERE `id_rua` = '$id_rua' "; 
             mysql_query($sql) or die(mysql_error()); 
-            echo (mysql_affected_rows()) ? "Alteração Salva com Sucesso.<br />" : "Erro ao salvar. <br />"; 
-            echo "<a href='rua_listar.php'>Voltar para Lista</a>"; 
+            echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
+            echo "<a href='rua_listar.php'>Back To Listing</a>"; 
             } 
-            $row = mysql_fetch_array ( mysql_query("SELECT * FROM `ruas` WHERE `id` = '$id' ")); 
+            $row = mysql_fetch_array ( mysql_query("SELECT * FROM `rua` WHERE `id_rua` = '$id_rua' ")); 
         ?>
 
             <form action='' method='POST'> 
-            <p><b>Nome Rua:</b><br /><input type='text' name='nome_rua' value='<?= stripslashes($row['nome_rua']) ?>' /> 
-            <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
+            <p><b>Rua:</b><br /><input type='text' name='descricao' value='<?= stripslashes($row['descricao']) ?>' /> 
+            <p><input class="btn btn-success" type='submit' value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
             </form> 
             <?php } ?> 
         </div>

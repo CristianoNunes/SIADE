@@ -138,15 +138,17 @@
                                 <div class="col-lg-6">
                                     <form role="form" action='imovel_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <p><b>Quadra IdQuadra:</b><br /><input type='text' name='Quadra_idQuadra'/> 
-                                            <p><b>Ladoquadra:</b><br /><input type='text' name='ladoquadra'/> 
-                                            <p><b>Rua Id:</b><br /><input type='text' name='Rua_id'/> 
-                                            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel'/> 
-                                            <p><b>IdTipoImovel:</b><br /><input type='text' name='idTipoImovel'/> 
                                             <p><b>Quantidade Habitantes:</b><br /><input type='text' name='quantidade_habitantes'/> 
                                             <p><b>Quantidade Caes:</b><br /><input type='text' name='quantidade_caes'/> 
-                                            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos'/>
-                                            </div>
+                                            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos'/> 
+                                            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel'/> 
+                                            <p><b>Ladoquadra:</b><br /><input type='text' name='ladoquadra'/> 
+                                            <p><b>Quadra Bairro Id:</b><br /><input type='text' name='Quadra_Bairro_id'/> 
+                                            <p><b>Quadra Id Quadra:</b><br /><input type='text' name='quadra_id_quadra'/> 
+                                            <p><b>Quadra Bairro Id Bairro:</b><br /><input type='text' name='quadra_bairro_id_bairro'/> 
+                                            <p><b>Rua Id Rua:</b><br /><input type='text' name='rua_id_rua'/> 
+                                            <p><b>Tipo Imovel Id Tipo Imovel:</b><br /><input type='text' name='tipo_imovel_id_tipo_imovel'/>
+                                        </div>
                                         <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
                                     </form>
                                 </div>

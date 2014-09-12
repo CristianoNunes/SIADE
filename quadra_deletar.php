@@ -1,7 +1,8 @@
 <? 
-	include('conecta.php'); 
-	$id = (int) $_GET['id']; 
-	mysql_query("DELETE FROM `quadras` WHERE `id` = '$id' ") ; 
-	echo (mysql_affected_rows()) ? "Row deleted.<br /> " : "Nothing deleted.<br /> ";
-	header("LOCATION: quadra_listar.php");
-?> 
+include('conecta.php'); 
+$id_quadra = (int) $_GET['id_quadra']; 
+mysql_query("DELETE FROM `quadra` WHERE `id_quadra` = '$id_quadra' ") ; 
+echo (mysql_affected_rows()) ? "Row deleted.<br /> " : "Nothing deleted.<br /> "; 
+header("LOCATION: quadra_listar.php");
+?>
+

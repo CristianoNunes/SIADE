@@ -118,29 +118,33 @@
         </nav>
 
         <div id="page-wrapper">
-           <?php 
-                include('conecta.php'); 
-                if (isset($_GET['id']) ) { 
-                $id = (int) $_GET['id']; 
-                if (isset($_POST['submitted'])) { 
-                foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                $sql = "UPDATE `quadras` SET  `id` =  '{$_POST['idQuadra']}' ,  `identificacao` =  '{$_POST['identificacao']}' ,  `idBairro` =  '{$_POST['idBairro']}'   WHERE `id` = '$id' "; 
-                mysql_query($sql) or die(mysql_error()); 
-                echo (mysql_affected_rows()) ? "Alteração Salva com Sucesso.<br />" : "Erro ao salvar. <br />"; 
-                echo "<a href='quadra_listar.php'>Voltar para Lista</a>";
-                } 
-                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `quadras` WHERE `id` = '$id' ")); 
-            ?>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    Editar
+                </div>
+                <?php 
+                    include('conecta.php'); 
+                    if (isset($_GET['id_quadra']) ) { 
+                    $id_quadra = (int) $_GET['id_quadra']; 
+                    if (isset($_POST['submitted'])) { 
+                    foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
+                    $sql = "UPDATE `quadra` SET  `identificacao` =  '{$_POST['identificacao']}' ,  `bairro_id_bairro` =  '{$_POST['bairro_id_bairro']}'   WHERE `id_quadra` = '$id_quadra' "; 
+                    mysql_query($sql) or die(mysql_error()); 
+                    echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
+                    echo "<a href='quadra_listar.php'>Back To Listing</a>"; 
+                    } 
+                    $row = mysql_fetch_array ( mysql_query("SELECT * FROM `quadra` WHERE `id_quadra` = '$id_quadra' ")); 
+                ?>
 
-                <form action='' method='POST'> 
-                <p><b>IdQuadra:</b><br /><input type='text' name='idQuadra' value='<?= stripslashes($row['id']) ?>' /> 
-                <p><b>Identificacao:</b><br /><input type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
-                <p><b>IdBairro:</b><br /><input type='text' name='idBairro' value='<?= stripslashes($row['idBairro']) ?>' /> 
-                <p><input type='submit' value='Edit Row' /><input type='hidden' value='1' name='submitted' /> 
-                </form> 
-                <?php } ?> 
+                    <form action='' method='POST'> 
+                    <p><b>Identificacao:</b><br /><input type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
+                    <p><b>Bairro Id Bairro:</b><br /><input type='text' name='bairro_id_bairro' value='<?= stripslashes($row['bairro_id_bairro']) ?>' /> 
+                    <p><input type='submit' value='Salvar' class="btn btn-success" /><input type='hidden' value='1' name='submitted' /> 
+                    </form> 
+                    <?php } ?> 
         
-
+            </div>
         </div>
     <!-- /#wrapper -->
 

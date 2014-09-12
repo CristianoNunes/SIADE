@@ -132,24 +132,13 @@
                                     <form role="form" action='quadra_adicionar.php' method='POST'>
                                         <div class="form-group">
                                             <p><b>Bairro:</b>
-                                            <select name="Bairro_id">
+                                            <select name="bairro_id_bairro">
                                             <?php
                                                 include('conecta.php');
-                                                $result = mysql_query("SELECT * FROM `bairros`") or trigger_error(mysql_error()); 
+                                                $result = mysql_query("SELECT * FROM `bairro`") or trigger_error(mysql_error()); 
                                                 while($row = mysql_fetch_array($result)){ 
                                                 foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                                                echo "<option value='". $row['id'] ."'> ".  $row['nome_bairro'] ." </option>";
-                                                }
-
-                                            ?>
-                                            </select>
-                                            <p><b>Agente:</b>
-                                            <select name="Agente_id">
-                                            <?php
-                                                $result = mysql_query("SELECT * FROM `agentes`") or trigger_error(mysql_error()); 
-                                                while($row = mysql_fetch_array($result)){ 
-                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                                                echo "<option value='". $row['id'] ."'> ".  $row['nome'] ." </option>";
+                                                echo "<option value='". $row['id_bairro'] ."'> ".  $row['nome_bairro'] ." </option>";
                                                 }
 
                                             ?>

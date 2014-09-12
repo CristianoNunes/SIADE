@@ -131,25 +131,27 @@
                 </div>
             <div class="panel-body">
                 <div class="table-responsive">
-        <?php 
-            include('conecta.php'); 
-            echo "<table class='table table-striped'>"; 
-            echo "<tr>"; 
-            echo "<td><b>Nome</b></td>";
-            echo "<td></td>"; 
-            echo "<td></td>";
-            echo "</tr>"; 
-            $result = mysql_query("SELECT * FROM `bairros`") or trigger_error(mysql_error()); 
-            while($row = mysql_fetch_array($result)){ 
-            foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-            echo "<tr>";  
-            echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";  
-            echo "<td valign='top'><a class='btn btn-warning' href=bairro_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=bairro_deletar.php?id={$row['id']}>Excluir</a></td> "; 
-            echo "</tr>"; 
-            } 
-            echo "</table>";
-        ?>
-        <a href="bairro.php" class="btn btn-success">Adicionar</a>
+                <?php 
+                    include('conecta.php'); 
+                    echo "<table class='table table-striped'>"; 
+                    echo "<tr>"; 
+                    echo "<td><b>Bairro</b></td>"; 
+                    
+                    echo "<td></td>";
+                    echo "<td></td>";
+                    echo "</tr>"; 
+                    $result = mysql_query("SELECT * FROM `bairro`") or trigger_error(mysql_error()); 
+                    while($row = mysql_fetch_array($result)){ 
+                    foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+                    echo "<tr>";    
+                    echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";  
+                      
+                    echo "<td valign='top'><a class='btn btn-warning' href=bairro_editar.php?id_bairro={$row['id_bairro']}>Editar</a></td><td><a class='btn btn-danger' href=bairro_deletar.php?id_bairro={$row['id_bairro']}>Excluir</a></td> "; 
+                    echo "</tr>"; 
+                    } 
+                    echo "</table>"; 
+                ?>
+                <a href="bairro.php" class="btn btn-success">Adicionar</a>
                     </div>
                 </div>
             </div>

@@ -135,18 +135,18 @@
                             include('conecta.php'); 
                             echo "<table class='table table-striped'>"; 
                             echo "<tr>"; 
+                            echo "<td><b>Nº da Quadra</b></td>";
                             echo "<td><b>Bairro</b></td>";
-                            echo "<td><b>Nº da Quadra</b></td>"; 
                             echo "<td></td>"; 
                             echo "<td></td>";
                             echo "</tr>"; 
-                            $result = mysql_query("SELECT * FROM `quadras`") or trigger_error(mysql_error()); 
+                            $result = mysql_query("SELECT * FROM `quadra`") or trigger_error(mysql_error()); 
                             while($row = mysql_fetch_array($result)){ 
                             foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-                            echo "<tr>";    
-                            echo "<td valign='top'>" . nl2br( $row['idBairro']) . "</td>";  
-                            echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";  
-                            echo "<td valign='top'><a class='btn btn-warning' href=quadra_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=quadra_deletar.php?id={$row['id']}>Excluir</a></td> "; 
+                            echo "<tr>";
+                            echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";
+                            echo "<td valign='top'>" . nl2br( $row['bairro_id_bairro']) . "</td>";
+                            echo "<td valign='top'><a class='btn btn-warning' href=quadra_editar.php?id_quadra={$row['id_quadra']}>Editar</a></td><td><a class='btn btn-danger' href=quadra_deletar.php?id_quadra={$row['id_quadra']}>Excluir</a></td> "; 
                             echo "</tr>"; 
                             } 
                             echo "</table>"; 

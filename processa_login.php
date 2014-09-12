@@ -6,7 +6,7 @@
         $pas = $_POST['senha'];
 
         $logado = false;
-        $resultset = mysql_query("select * from agentes where login = '$log' and senha = '$pas';");
+        $resultset = mysql_query("select * from agente where login = '$log' and senha = '$pas';");
 
         while($row = mysql_fetch_array($resultset, MYSQL_BOTH)){
              $logado = true;

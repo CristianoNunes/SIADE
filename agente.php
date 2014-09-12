@@ -137,13 +137,13 @@
                                     <form role="form" action='agente_adicionar.php' method='POST'>
                                         <div class="form-group">
                                             <p><b>Campanha:</b>
-                                            <select name="Campanha_idCampanha">
+                                            <select name="campanha_id_campanha">
                                             <?php
                                                 include('conecta.php');
-                                                $result = mysql_query("SELECT * FROM `campanhas`") or trigger_error(mysql_error()); 
+                                                $result = mysql_query("SELECT * FROM `campanha`") or trigger_error(mysql_error()); 
                                                 while($row = mysql_fetch_array($result)){ 
                                                 foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                                                echo "<option value='". $row['idCampanha'] ."'> ". $row['descricao'] ." </option>";
+                                                echo "<option value='". $row['id_campanha'] ."'> ". $row['descricao'] ." </option>";
                                                 }
 
                                             ?>
@@ -157,19 +157,21 @@
                                             <p><b>Login:</b><br /><input type='text' name='login'/> 
                                             <p><b>Senha:</b><br /><input type='password' name='senha'/>
                                             <p><b>Nivel:</b><br />
-                                            <select name="Nivel_IdNivel">
+                                            <select name="nivel_id_nivel">
                                             <?php
                                                 include('conecta.php');
-                                                $result = mysql_query("SELECT * FROM `niveis`") or trigger_error(mysql_error()); 
+                                                $result = mysql_query("SELECT * FROM `nivel`") or trigger_error(mysql_error()); 
                                                 while($row = mysql_fetch_array($result)){ 
                                                 foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                                                echo "<option value='". $row['IdNivel'] ."'> ".  $row['Descricao'] ." </option>";
+                                                echo "<option value='". $row['id_nivel'] ."'> ".  $row['descricao'] ." </option>";
                                                 }
 
                                             ?>
                                             </select>
-                                            <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
+
+                                        <p><input type='submit' value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
                                         </div>
+
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

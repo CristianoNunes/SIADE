@@ -123,7 +123,7 @@
     </div>
     <!-- /#wrapper -->
     <div id="page-wrapper">
-        
+        <center><img src="SIADE.png"></center>
     </div>
 
     <!-- Core Scripts - Include with every page -->

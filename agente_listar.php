@@ -113,7 +113,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                     <!-- /#side-menu -->
-                </div>
+                
                 <!-- /.sidebar-collapse -->
             </div>
             <!-- /.navbar-static-side -->
@@ -131,38 +131,40 @@
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-        <?php 
-            include('conecta.php'); 
-            echo "<table class='table table-striped'>"; 
-            echo "<tr>"; 
-            echo "<td><b>Campanha</b></td>"; 
-            echo "<td><b>Barra</b></td>"; 
-            echo "<td><b>Nome</b></td>"; 
-            echo "<td><b>Telefone</b></td>"; 
-            echo "<td><b>Celular</b></td>"; 
-            echo "<td><b>Login</b></td>"; 
-            echo "<td><b>Nivel</b></td>"; 
-            echo "<td></td>"; 
-            echo "<td></td>";
-            echo "</tr>"; 
-            $result = mysql_query("SELECT * FROM `agentes`") or trigger_error(mysql_error()); 
-            while($row = mysql_fetch_array($result)){ 
-            foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-            echo "<tr>";  
-              
-            echo "<td valign='top'>" . nl2br( $row['Campanha_idCampanha']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['barra']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['nome']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['telefone']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['celular']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['login']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['Nivel_IdNivel']) . "</td>";  
-            echo "<td valign='top'><a class='btn btn-warning' href=agente_editar.php?id={$row['id']}>Editar</a></td><td><a class='btn btn-danger' href=agente_deletar.php?id={$row['id']}>Excluir</a></td> "; 
-            echo "</tr>"; 
-            } 
-            echo "</table>"; 
-        ?>
-        <a href="agente.php" class="btn btn-success">Adicionar</a>
+
+                <? 
+                    include('conecta.php'); 
+                    echo "<table class='table table-striped'>"; 
+                    echo "<tr>"; 
+                    echo "<td><b>Barra</b></td>"; 
+                    echo "<td><b>Nome</b></td>"; 
+                    echo "<td><b>Telefone</b></td>"; 
+                    echo "<td><b>Celular</b></td>"; 
+                    echo "<td><b>Sexo</b></td>"; 
+                    echo "<td><b>Login</b></td>"; 
+                    echo "<td><b>Nivel</b></td>"; 
+                    echo "<td><b>Campanha</b></td>"; 
+                    echo "<td></td>";
+                    echo "<td></td>";
+                    echo "</tr>"; 
+                    $result = mysql_query("SELECT * FROM `agente`") or trigger_error(mysql_error()); 
+                    while($row = mysql_fetch_array($result)){ 
+                    foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+                    echo "<tr>";  
+                    echo "<td valign='top'>" . nl2br( $row['barra']) . "</td>";  
+                    echo "<td valign='top'>" . nl2br( $row['nome']) . "</td>";  
+                    echo "<td valign='top'>" . nl2br( $row['telefone']) . "</td>";  
+                    echo "<td valign='top'>" . nl2br( $row['celular']) . "</td>";  
+                    echo "<td valign='top'>" . nl2br( $row['sexo']) . "</td>";  
+                    echo "<td valign='top'>" . nl2br( $row['login']) . "</td>";    
+                    echo "<td valign='top'>" . nl2br( $row['nivel_id_nivel']) . "</td>";  
+                    echo "<td valign='top'>" . nl2br( $row['campanha_id_campanha']) . "</td>";  
+                    echo "<td valign=\"top\"><a class=\"btn btn-warning\" href=\"agente_editar.php?id=".$row['id_agente']."\">Editar</a></td><td><a class=\"btn btn-danger\" href=\"agente_deletar.php?id=".$row['id_agente']."\">Excluir</a></td> "; 
+                    echo "</tr>"; 
+                    } 
+                    echo "</table>"; 
+                    ?>
+                    <a href="agente.php" class="btn btn-success">Adicionar</a>
                     </div>
                 </div>
             </div>

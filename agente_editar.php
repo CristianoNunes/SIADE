@@ -113,8 +113,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                     <!-- /#side-menu -->
-                </div>
-                <!-- /.sidebar-collapse -->
+                
             </div>
             <!-- /.navbar-static-side -->
         </nav>
@@ -124,57 +123,41 @@
     <!-- /#wrapper -->
     <div id="page-wrapper">
     	<br />
+        <div class="row">
     	<div class="panel panel-default">
     		<div class="panel panel-heading">
     			Editar
     		</div>
+            <div class="panel-body">
             <form action='' method='POST'>
-            
             <?php 
-                if (isset($_GET['id']) ) { 
-                $id = (int) $_GET['id']; 
+                include('conecta.php'); 
+                if (isset($_GET['id']) ) {
+                $id_agente = $_GET['id'];
                 if (isset($_POST['submitted'])) { 
                 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                $sql = "UPDATE `agentes` SET  `Campanha_idCampanha` =  '{$_POST['Campanha_idCampanha']}' ,  `barra` =  '{$_POST['barra']}' ,  `nome` =  '{$_POST['nome']}' ,  `telefone` =  '{$_POST['telefone']}' ,  `celular` =  '{$_POST['celular']}' ,  `sexo` =  '{$_POST['sexo']}' ,  `login` =  '{$_POST['login']}' ,  `senha` =  '{$_POST['senha']}' ,  `Nivel_IdNivel` =  '{$_POST['Nivel_IdNivel']}'   WHERE `id` = '$id' "; 
+                $sql = "UPDATE `agente` SET  `barra` =  '{$_POST['barra']}' ,  `nome` =  '{$_POST['nome']}' ,  `telefone` =  '{$_POST['telefone']}' ,  `celular` =  '{$_POST['celular']}' ,  `sexo` =  '{$_POST['sexo']}' ,  `login` =  '{$_POST['login']}' ,  `senha` =  '{$_POST['senha']}' ,  `nivel_id_nivel` =  '{$_POST['nivel_id_nivel']}' ,  `campanha_id_campanha` =  '{$_POST['campanha_id_campanha']}'   WHERE `id_agente` = '$id_agente' "; 
                 mysql_query($sql) or die(mysql_error()); 
-                echo (mysql_affected_rows()) ? "Alteração Salva com Sucesso.<br />" : "Erro ao salvar. <br />"; 
-                echo "<a href='agente_listar.php'>Voltar para Lista</a>"; 
+                echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
+                echo "<a href='agente_listar.php'>Back To Listing</a>"; 
                 } 
-                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `agentes` WHERE `id` = '$id' ")); 
+                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `agente` WHERE `id_agente` = '$id_agente' ")); 
                 ?>
-
+ 
                 <p><b>Barra:</b><br /><input type='text' name='barra' value='<?= stripslashes($row['barra']) ?>' /> 
                 <p><b>Nome:</b><br /><input type='text' name='nome' value='<?= stripslashes($row['nome']) ?>' /> 
                 <p><b>Telefone:</b><br /><input type='text' name='telefone' value='<?= stripslashes($row['telefone']) ?>' /> 
-                <p><b>Celular:</b><br /><input type='text' name='celular' value='<?= stripslashes($row['celular']) ?>' /> 
-                <p><b>Sexo:</b><br /><input type='radio' name='sexo' value='masculino'/> Masculino <input type='radio' name='sexo' value='feminino'/> Feminino
+                <p><b>Celular:</b><br /><input type='text' name='celular' value='<?= stripslashes($row['celular']) ?>' />
+                <p><b>Sexo:</b><br /><input type='text' name='sexo' value='<?= stripslashes($row['sexo']) ?>' /> 
                 <p><b>Login:</b><br /><input type='text' name='login' value='<?= stripslashes($row['login']) ?>' /> 
                 <p><b>Senha:</b><br /><input type='text' name='senha' value='<?= stripslashes($row['senha']) ?>' /> 
-                <p><b>Nivel:</b><br />
-                    <select name="Nivel_IdNivel">
-                    <?php
-                    $result = mysql_query("SELECT * FROM `niveis`") or trigger_error(mysql_error()); 
-                    while($row = mysql_fetch_array($result)){ 
-                        foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                            echo "<option value='". $row['IdNivel'] ."'> ".  $row['Descricao'] ." </option>";
-                    }
-                    ?>
-                    </select>
-                <p><b>Campanha:</b>
-            <select name="Campanha_idCampanha">
-            <?php
-                include('conecta.php');
-                $result = mysql_query("SELECT * FROM `campanhas`") or trigger_error(mysql_error()); 
-                while($row = mysql_fetch_array($result)){ 
-                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                echo "<option value='". $row['idCampanha'] ."'> ". $row['descricao'] ." </option>";
-                                                }
-
-            ?>
-            </select>
-                <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
-                </form> 
+                <p><b>Nivel:</b><br /><input type='text' name='nivel_id_nivel' value='<?= stripslashes($row['nivel_id_nivel']) ?>' /> 
+                <p><b>Campanha:</b><br /><input type='text' name='campanha_id_campanha' value='<?= stripslashes($row['campanha_id_campanha']) ?>' /> 
+                <p><input type='submit' value='Salvar' class="btn btn-success" /><input type='hidden' value='1' name='submitted' /> 
+            </form> 
                 <?php } ?> 
+            </div>
+        </div>         
         </div>
     </div>
 

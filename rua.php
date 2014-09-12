@@ -134,7 +134,7 @@
                                 <div class="col-lg-6">
                                     <form role="form" action='rua_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <p><b>Nome:</b><br /><input type='text' name='nome_rua'/>
+                                            <p><b>Nome:</b><br /><input type='text' name='descricao'/>
                                             <p class="help-block">Exemplo: Rua. Independência</p>
                                         </div>
                                         <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
