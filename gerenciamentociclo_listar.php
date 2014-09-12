@@ -8,6 +8,8 @@
 
     <title>Sistema Informatizado dos Agentes de Endemias</title>
 
+    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+    
     <!-- Core CSS - Include with every page -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -29,7 +31,7 @@
         session_destroy();
         header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
     }
-    ?>
+  ?>
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -117,49 +119,70 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
-            <br />
-            <div class="panel panel-default">
-                <div class="panel panel-heading">
-                    Editar
-                </div>
-                <?php 
-                    include('conecta.php'); 
-                    if (isset($_GET['id_quadra']) ) { 
-                    $id_quadra = (int) $_GET['id_quadra']; 
-                    if (isset($_POST['submitted'])) { 
-                    foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                    $sql = "UPDATE `quadra` SET  `identificacao` =  '{$_POST['identificacao']}' ,  `bairro_id_bairro` =  '{$_POST['bairro_id_bairro']}'   WHERE `id_quadra` = '$id_quadra' "; 
-                    mysql_query($sql) or die(mysql_error()); 
-                    echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
-                    echo "<a href='quadra_listar.php'>Back To Listing</a>"; 
-                    } 
-                    $row = mysql_fetch_array ( mysql_query("SELECT * FROM `quadra` WHERE `id_quadra` = '$id_quadra' ")); 
-                ?>
 
-                    <form action='' method='POST'> 
-                    <p><b>Identificacao:</b><br /><input type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
-                    <p><b>Bairro Id Bairro:</b><br /><input type='text' name='bairro_id_bairro' value='<?= stripslashes($row['bairro_id_bairro']) ?>' /> 
-                    <p><input type='submit' value='Salvar' class="btn btn-success" /><input type='hidden' value='1' name='submitted' /> 
-                    </form> 
-                    <?php } ?> 
-        
-            </div>
-        </div>
+    </div>
     <!-- /#wrapper -->
+    <div id="page-wrapper">
+    <br />
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Cadastro de Agente
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    
+						        <?php 
+									include('conecta.php'); 
+									echo "<table class='table table-striped'>"; 
+									echo "<tr>"; 
+									echo "<td><b>Ciclo</b></td>";
+									echo "<td><b>Data Inicio</b></td>"; 
+									echo "<td><b>Data Fim</b></td>"; 
+									echo "<td><b>Ano</b></td>";
+									echo "<td></td>";
+									echo "<td></td>";
+									echo "</tr>"; 
+									$result = mysql_query("SELECT * FROM `ciclo`") or trigger_error(mysql_error()); 
+									while($row = mysql_fetch_array($result)){ 
+									foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+									echo "<tr>";  
+									echo "<td valign='top'>" . nl2br( $row['numero']) . "</td>";
+									echo "<td valign='top'>" . nl2br( $row['data_inicio']) . "</td>";  
+									echo "<td valign='top'>" . nl2br( $row['data_fim']) . "</td>";  
+									echo "<td valign='top'>" . nl2br( $row['anoBase']) . "</td>";  
+									echo "<td valign='top'><a class='btn btn-warning' href=ciclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td><td><a class='btn btn-danger' href=ciclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> "; 
+									echo "</tr>"; 
+									} 
+									echo "</table>"; 
+									?>
+									<a href="gerenciamentociclo.php" class="btn btn-success">Novo</a>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    </div>
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-    <!-- Page-Level Plugin Scripts - Forms -->
+    <!-- Page-Level Plugin Scripts - Dashboard -->
+    <script src="js/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/plugins/morris/morris.js"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
     <script src="js/sb-admin.js"></script>
 
-    <!-- Page-Level Demo Scripts - Forms - Use for reference -->
-
+    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
+    <script src="js/demo/dashboard-demo.js"></script>
+    
 </body>
 
 </html>
