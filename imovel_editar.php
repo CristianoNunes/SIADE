@@ -29,7 +29,7 @@
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
   ?>
     <div id="wrapper">
@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -131,8 +131,14 @@
             foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
             $sql = "UPDATE `ruas` SET  `nome_rua` =  '{$_POST['nome_rua']}'   WHERE `id` = '$id' "; 
             mysql_query($sql) or die(mysql_error()); 
-            echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
-            echo "<a href='list.php'>Back To Listing</a>"; 
+            echo (mysql_affected_rows()) ?   
+                    "<script type='text/javascript'>
+                        window.location.href = 'imovel_listar.php?msg_ok=Alteração salva com sucesso!'
+                    </script>" 
+                    : 
+                    "<script type='text/javascript'>
+                        window.location.href = 'imovel_listar.php?msg_erro=Erro ao salvar!'
+                    </script>";
             } 
             $row = mysql_fetch_array ( mysql_query("SELECT * FROM `ruas` WHERE `id` = '$id' ")); 
             ?>

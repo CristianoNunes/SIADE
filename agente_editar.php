@@ -29,7 +29,7 @@
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
     ?>
     <div id="wrapper">
@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -136,10 +136,16 @@
                 $id_agente = $_GET['id'];
                 if (isset($_POST['submitted'])) { 
                 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                $sql = "UPDATE `agente` SET  `barra` =  '{$_POST['barra']}' ,  `nome` =  '{$_POST['nome']}' ,  `telefone` =  '{$_POST['telefone']}' ,  `celular` =  '{$_POST['celular']}' ,  `sexo` =  '{$_POST['sexo']}' ,  `login` =  '{$_POST['login']}' ,  `senha` =  '{$_POST['senha']}' ,  `nivel_id_nivel` =  '{$_POST['nivel_id_nivel']}' ,  `campanha_id_campanha` =  '{$_POST['campanha_id_campanha']}'   WHERE `id_agente` = '$id_agente' "; 
+                $sql = "UPDATE `agente` SET  `barra` =  '{$_POST['barra']}' ,  `nome` =  '{$_POST['nome']}' ,  `telefone` =  '{$_POST['telefone']}' ,  `celular` =  '{$_POST['celular']}' ,  `login` =  '{$_POST['login']}' ,  `senha` =  '{$_POST['senha']}' ,  `nivel_id_nivel` =  '{$_POST['nivel_id_nivel']}' ,  `campanha_id_campanha` =  '{$_POST['campanha_id_campanha']}'   WHERE `id_agente` = '$id_agente' "; 
                 mysql_query($sql) or die(mysql_error()); 
-                echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
-                echo "<a href='agente_listar.php'>Back To Listing</a>"; 
+                echo (mysql_affected_rows()) ?  
+                    "<script type='text/javascript'>
+                        window.location.href = 'agente_listar.php?msg_ok=Alteração salva com sucesso!'
+                    </script>" 
+                    : 
+                    "<script type='text/javascript'>
+                        window.location.href = 'agente_listar.php?msg_erro=Erro ao salvar!'
+                    </script>";
                 } 
                 $row = mysql_fetch_array ( mysql_query("SELECT * FROM `agente` WHERE `id_agente` = '$id_agente' ")); 
                 ?>
@@ -148,7 +154,6 @@
                 <p><b>Nome:</b><br /><input type='text' name='nome' value='<?= stripslashes($row['nome']) ?>' /> 
                 <p><b>Telefone:</b><br /><input type='text' name='telefone' value='<?= stripslashes($row['telefone']) ?>' /> 
                 <p><b>Celular:</b><br /><input type='text' name='celular' value='<?= stripslashes($row['celular']) ?>' />
-                <p><b>Sexo:</b><br /><input type='text' name='sexo' value='<?= stripslashes($row['sexo']) ?>' /> 
                 <p><b>Login:</b><br /><input type='text' name='login' value='<?= stripslashes($row['login']) ?>' /> 
                 <p><b>Senha:</b><br /><input type='text' name='senha' value='<?= stripslashes($row['senha']) ?>' /> 
                 <p><b>Nivel:</b><br /><input type='text' name='nivel_id_nivel' value='<?= stripslashes($row['nivel_id_nivel']) ?>' /> 

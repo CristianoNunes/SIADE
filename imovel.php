@@ -29,7 +29,7 @@
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
     ?>
 
@@ -93,7 +93,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>

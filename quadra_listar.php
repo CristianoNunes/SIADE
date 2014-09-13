@@ -29,7 +29,7 @@
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
     ?>
     <div id="wrapper">
@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -130,6 +130,21 @@
                     Lista de Quadras
                 </div>
                 <div class="panel-body">
+
+                    <?php
+                    if(isset($_GET['msg_ok'])){
+                        echo "<div class='alert alert-success'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                        echo $_GET['msg_ok'];
+                        echo "</div>";
+                    }else if(isset($_GET['msg_erro'])){
+                        echo "<div class='alert alert-danger'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                        echo $_GET['msg_erro'];
+                        echo "</div>";
+                    }
+                ?>
+                    
                     <div class="table-responsive">
                         <? 
                             include('conecta.php'); 

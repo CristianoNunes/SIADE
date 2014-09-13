@@ -27,7 +27,7 @@
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
     ?>
     <div id="wrapper">
@@ -90,7 +90,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -131,15 +131,21 @@
                     foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
                     $sql = "UPDATE `quadra` SET  `identificacao` =  '{$_POST['identificacao']}' ,  `bairro_id_bairro` =  '{$_POST['bairro_id_bairro']}'   WHERE `id_quadra` = '$id_quadra' "; 
                     mysql_query($sql) or die(mysql_error()); 
-                    echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
-                    echo "<a href='quadra_listar.php'>Back To Listing</a>"; 
+                    echo (mysql_affected_rows()) ?   
+                    "<script type='text/javascript'>
+                        window.location.href = 'quadra_listar.php?msg_ok=Alteração salva com sucesso!'
+                    </script>" 
+                    : 
+                    "<script type='text/javascript'>
+                        window.location.href = 'quadra_listar.php?msg_erro=Erro ao salvar!'
+                    </script>"; 
                     } 
                     $row = mysql_fetch_array ( mysql_query("SELECT * FROM `quadra` WHERE `id_quadra` = '$id_quadra' ")); 
                 ?>
 
                     <form action='' method='POST'> 
                     <p><b>Identificacao:</b><br /><input type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
-                    <p><b>Bairro Id Bairro:</b><br /><input type='text' name='bairro_id_bairro' value='<?= stripslashes($row['bairro_id_bairro']) ?>' /> 
+                    <p><b>Bairro:</b><br /><input type='text' name='bairro_id_bairro' value='<?= stripslashes($row['bairro_id_bairro']) ?>' /> 
                     <p><input type='submit' value='Salvar' class="btn btn-success" /><input type='hidden' value='1' name='submitted' /> 
                     </form> 
                     <?php } ?> 

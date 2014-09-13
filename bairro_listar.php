@@ -7,8 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Sistema Informatizado dos Agentes de Endemias</title>
-
-    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+    function excluir(id) {
+            alert(id);
+        }
+    </script>
+    <script type="text/javascript" src="js/jquery-1.10.2.js">
+        
+    </script>
     
     <!-- Core CSS - Include with every page -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +26,7 @@
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
+    
 
 </head>
 
@@ -29,7 +36,7 @@
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
     ?>
     <div id="wrapper">
@@ -92,7 +99,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -130,6 +137,21 @@
                     Lista de Bairros
                 </div>
             <div class="panel-body">
+
+                <?php
+                    if(isset($_GET['msg_ok'])){
+                        echo "<div class='alert alert-success'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                        echo $_GET['msg_ok'];
+                        echo "</div>";
+                    }else if(isset($_GET['msg_erro'])){
+                        echo "<div class='alert alert-danger'>
+                            <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                        echo $_GET['msg_erro'];
+                        echo "</div>";
+                    }
+                ?>
+                
                 <div class="table-responsive">
                 <?php 
                     include('conecta.php'); 
@@ -146,7 +168,9 @@
                     echo "<tr>";    
                     echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";  
                       
-                    echo "<td valign='top'><a class='btn btn-warning' href=bairro_editar.php?id_bairro={$row['id_bairro']}>Editar</a></td><td><a class='btn btn-danger' href=bairro_deletar.php?id_bairro={$row['id_bairro']}>Excluir</a></td> "; 
+                    //echo "<td valign='top'><a class='btn btn-warning' href=bairro_editar.php?id_bairro={$row['id_bairro']}>Editar</a></td><td><a class='btn btn-danger' href=bairro_deletar.php?id_bairro={$row['id_bairro']}>Excluir</a></td> "; 
+                    echo "<td valign='top'><a class='btn btn-warning' href=bairro_editar.php?id_bairro={$row['id_bairro']}>Editar</a></td>
+                    <td><a class='btn btn-danger' onclick='excluir({$row['id_bairro']});'>Excluir</a></td> "; 
                     echo "</tr>"; 
                     } 
                     echo "</table>"; 

@@ -27,6 +27,21 @@
                         <h3 class="panel-title">Login</h3>
                     </div>
                     <div class="panel-body">
+
+                        <?php
+                            if(isset($_GET['msg_ok'])){
+                                echo "<div class='alert alert-success'>
+                                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                                echo $_GET['msg_ok'];
+                                echo "</div>";
+                            }else if(isset($_GET['msg_erro'])){
+                                echo "<div class='alert alert-danger'>
+                                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                                echo $_GET['msg_erro'];
+                                echo "</div>";
+                            }
+                        ?>
+
                         <form role="form" action="processa_login.php" method="POST">
                             <fieldset>
                                 <div class="form-group">
@@ -43,11 +58,7 @@
             </div>
         </div>
     </div>
-    <?php
-        if(isset($_GET['msg'])){
-            echo $_GET['msg'];
-        }
-    ?>
+
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/bootstrap.min.js"></script>

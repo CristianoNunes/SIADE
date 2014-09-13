@@ -135,78 +135,14 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>Agentes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Cristiano Nunes
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Felipe Tomaz
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Djalma Medeiros
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Geraldo Lopes
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Diego Oliveira
-                                                </label>
-                                            </div>
+                                    <form role="form" action='' method='POST'>
+                                        <div class="form-group"> 
+                                        <p><b>Data Inicio:</b><br /><input type='text' name='data_inicio'/> 
+                                        <p><b>Data Fim:</b><br /><input type='text' name='data_fim'/> 
+                                        <p><b>Numero:</b><br /><input type='text' name='numero'/> 
+                                        <p><b>Ano:</b><br /><input type='text' name='anoBase'/>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Bairros</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Centro
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">João XXIII
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">São Judas
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Chico Cajá
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">São Vicente
-                                                </label>
-                                            </div>
-                                            <label>Atividades</label>
-                                            <select class="form-control">
-                                                <option>1- Tratamento</option>
-                                                <option>2- Pesquisa</option>
-                                                <option>3- Tratamento e Pesquisa</option>
-                                                <option>4- Ponto Estratégico</option>
-                                            </select>
-                                        </div>
-                                        <hr />
-                                        <div class="form-group">
-                                            <label>Data de Início</label>
-                                            <input class="form-control" placeholder="  /  /  ">
-                                            <label>Data de Fim</label>
-                                            <input class="form-control" placeholder="  /  /  ">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Iniciar Ciclo</button>
+                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' />
                                     </form> 
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
