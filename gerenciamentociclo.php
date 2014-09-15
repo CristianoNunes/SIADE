@@ -135,7 +135,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action='' method='POST'>
+                                    <form role="form" action='gerenciamentociclo_adicionar.php' method='POST'>
                                         <div class="form-group"> 
                                         <p><b>Data Inicio:</b><br /><input type='text' name='data_inicio'/> 
                                         <p><b>Data Fim:</b><br /><input type='text' name='data_fim'/> 
