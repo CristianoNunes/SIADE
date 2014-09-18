@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -130,11 +130,14 @@
     		</div>
             <?php 
                 include('conecta.php'); 
-                if (isset($_GET['id_bairro']) ) { 
-                $id_bairro = (int) $_GET['id_bairro']; 
+                if (isset($_GET['id']) ) { 
+                $id = (int) $_GET['id']; 
                 if (isset($_POST['submitted'])) { 
                 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                $sql = "UPDATE `bairro` SET  `nome_bairro` =  '{$_POST['nome_bairro']}' ,  `cidade_id_cidade` =  '{$_POST['cidade_id_cidade']}'   WHERE `id_bairro` = '$id_bairro' "; 
+                $sql = "UPDATE `bairro` SET  
+                    `nome_bairro` =  '{$_POST['nome_bairro']}'
+                    WHERE `id_bairro` = '$id' "; 
+                
                 mysql_query($sql) or die(mysql_error()); 
                 echo (mysql_affected_rows()) ?  
                     "<script type='text/javascript'>
@@ -142,16 +145,19 @@
                     </script>" 
                     : 
                     "<script type='text/javascript'>
-                        window.location.href = 'bairro_listar.php?msg_erro=Erro ao salvar!'
+                        window.location.href = 'bairro_listar.php?msg_erro=Nenhuma alteração realizada!'
                     </script>";
                 } 
-                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `bairro` WHERE `id_bairro` = '$id_bairro' ")); 
+                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `bairro` 
+                    WHERE `id_bairro` = '$id' ")); 
             ?>
 
                 <form action='' method='POST'>
-                <p><b>Bairro:</b><br /><input type='text' name='nome_bairro' value='<?= stripslashes($row['nome_bairro']) ?>' /> 
-                <p><b>Cidade:</b>
-                    <select name="cidade_id_cidade">
+                <p><b>Bairro:</b><br /><input class='form-control' type='text' name='nome_bairro' value='<?= stripslashes($row['nome_bairro']) ?>' /> 
+                
+
+                <!--<p><b>Cidade:</b>
+                    <select name="cidade_id_cidade" class="form-control">
                     <?php
                         $result = mysql_query("SELECT * FROM `cidade`") or trigger_error(mysql_error()); 
                         while($row = mysql_fetch_array($result)){ 
@@ -159,9 +165,11 @@
                                 echo "<option value='". stripslashes($row['id_cidade']) ."'> ". $row['nome_cidade'] ." </option>";
                         }
                     ?>
-                    </select>
+                    </select>-->
                 
-                <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
+                
+                <p><input type='submit' class='btn btn-default' value=' Salvar ' name='submitted' />
+                <a href='bairro_listar.php' class='btn btn-default'> Voltar </a> 
                 </form> 
                 <?php } ?> 
  

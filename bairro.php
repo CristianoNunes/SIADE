@@ -93,7 +93,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -138,7 +138,7 @@
                                     <form role="form" action='bairro_adicionar.php' method='POST'>
                                         <div class="form-group">
                                             <p><b>Cidade:</b>
-                                            <select name="cidade_id_cidade">
+                                            <select class='form-control' name="cidade_id_cidade">
                                             <?php
                                                 include('conecta.php');
                                                 $result = mysql_query("SELECT * FROM `cidade`") or trigger_error(mysql_error()); 
@@ -149,10 +149,11 @@
 
                                             ?>
                                             </select>
-                                            <p><b>Nome:</b><br /><input type='text' name='nome_bairro'/>
+                                            <p><b>Nome:</b><input class="form-control" type='text' name='nome_bairro'/>
                                             <p class="help-block">Exemplo: Centro</p>
                                         </div>
-                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
+                                        <p><input type='submit' class="btn btn-success" value=' Salvar ' /><input type='hidden' value='1' name='submitted' />
+                                        <input type='reset' class='btn btn-default' value=' Limpar ' /> 
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

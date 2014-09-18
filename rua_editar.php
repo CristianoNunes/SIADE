@@ -93,7 +93,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -131,11 +131,11 @@
             </div>
         <?php 
             include('conecta.php'); 
-            if (isset($_GET['id_rua']) ) { 
-            $id_rua = (int) $_GET['id_rua']; 
+            if (isset($_GET['id']) ) { 
+            $id = (int) $_GET['id']; 
             if (isset($_POST['submitted'])) { 
             foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-            $sql = "UPDATE `rua` SET  `descricao` =  '{$_POST['descricao']}'   WHERE `id_rua` = '$id_rua' "; 
+            $sql = "UPDATE `rua` SET  `descricao` =  '{$_POST['descricao']}'   WHERE `id_rua` = '$id' "; 
             mysql_query($sql) or die(mysql_error()); 
             echo (mysql_affected_rows()) ?   
                     "<script type='text/javascript'>
@@ -143,15 +143,16 @@
                     </script>" 
                     : 
                     "<script type='text/javascript'>
-                        window.location.href = 'rua_listar.php?msg_erro=Erro ao salvar!'
+                        window.location.href = 'rua_listar.php?msg_erro=Nenhuma alteração realizada!'
                     </script>"; 
             } 
-            $row = mysql_fetch_array ( mysql_query("SELECT * FROM `rua` WHERE `id_rua` = '$id_rua' ")); 
+            $row = mysql_fetch_array ( mysql_query("SELECT * FROM `rua` WHERE `id_rua` = '$id' ")); 
         ?>
 
             <form action='' method='POST'> 
-            <p><b>Rua:</b><br /><input type='text' name='descricao' value='<?= stripslashes($row['descricao']) ?>' /> 
-            <p><input class="btn btn-success" type='submit' value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
+            <p><b>Rua:</b><input class="form-control" type='text' name='descricao' value='<?= stripslashes($row['descricao']) ?>' /> 
+            <p><input class="btn btn-default" type='submit' value='Salvar' name='submitted' /> 
+            <a href='rua_listar.php' class='btn btn-default'> Voltar </a>
             </form> 
             <?php } ?> 
         </div>

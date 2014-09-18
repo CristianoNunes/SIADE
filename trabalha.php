@@ -20,6 +20,15 @@
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#bairros_id').change(function(){
+                $('#quadras_id').load('ajax_buscar_quadras.php?bairro='+$('#bairros_id').val() );
+
+            });
+        });
+
+    </script>
 
 </head>
 
@@ -86,6 +95,9 @@
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
                                 </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -127,20 +139,43 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Cadastro de Rua
+                            Gerenciamento de Ciclo - Divisão
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form onsubmit='return valida_rua(this)' role="form" action='rua_adicionar.php' method='POST'>
+                                    <form role="form" action='trabalha_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <p><b>Nome:</b><br />
-                                            <input class="form-control" type='text' name='descricao'/>
-                                            <p class="help-block">Exemplo: Rua. Independência</p>
-                                            <input type='submit' class='btn btn-default' value=' Salvar ' />
-                                            <input type='hidden' value='1' name='submitted' />
-                                            <input type='reset' class='btn btn-default' value=' Limpar ' />
+                                            <p><b>Agente:</b>
+                                            <select class='form-control' name="agente_id_agente">
+                                            <?php
+                                                include('conecta.php');
+                                                $result = mysql_query("SELECT * FROM `agente`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_agente'] ."'> ". $row['nome'] ." </option>";
+                                                }
+
+                                            ?>
+                                            </select>
+                                            <p><b>Ciclo Id Ciclo:</b><br /><input type='text' name='ciclo_id_ciclo'/> 
+                                            <p><b>Bairro:</b>
+                                            <select name="quadra_bairro_id_bairro" id="bairros_id">    
+                                                <?php
+                                                $cidades2 = "SELECT id_bairro, nome_bairro FROM bairro ORDER BY nome_bairro";
+                                                $rs2 = mysql_query($cidades2);
+                                                echo("<option value='' selected>nome</option>");
+                                                while($linha = mysql_fetch_array($rs2,MYSQL_BOTH)) {
+                                                    echo("<option value='".$linha['id_bairro']."'>".$linha['nome_bairro']."</option>");//value = id
+                                                }
+
+                                                ?>
+                                            </select>
+                                            <select multiple name="quadra_id_quadra[]"   id="quadras_id">
+
+                                            </select> 
                                         </div>
+                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -171,15 +206,6 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-    <script type="text/javascript">
-        function valida_rua(form) {
-            if(form.descricao.value="") {
-                form.descricao.focus();
-                alert("asdfgiobhflksjgnbsdkbnskv");
-                return false;
-            }
-        }
-    </script>
 
 </body>
 

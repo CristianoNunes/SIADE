@@ -129,7 +129,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Cadastro de Agente
+                            Gerenciamento de Ciclo
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -145,6 +145,7 @@
 									echo "<td><b>Ano</b></td>";
 									echo "<td></td>";
 									echo "<td></td>";
+                                    echo "<td></td>";
 									echo "</tr>"; 
 									$result = mysql_query("SELECT * FROM `ciclo`") or trigger_error(mysql_error()); 
 									while($row = mysql_fetch_array($result)){ 
@@ -154,7 +155,9 @@
 									echo "<td valign='top'>" . nl2br( $row['data_inicio']) . "</td>";  
 									echo "<td valign='top'>" . nl2br( $row['data_fim']) . "</td>";  
 									echo "<td valign='top'>" . nl2br( $row['anoBase']) . "</td>";  
-									echo "<td valign='top'><a class='btn btn-warning' href=ciclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td><td><a class='btn btn-danger' href=ciclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> "; 
+									echo "<td valign='top'><a class='btn btn-warning' href=gerenciamentociclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td>
+                                    <td><a class='btn btn-danger' href=gerenciamentociclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> 
+                                    <td><a class='btn btn-info btn-circle' href=trabalha_listar.php?id_ciclo={$row['id_ciclo']}>+</a></td>"; 
 									echo "</tr>"; 
 									} 
 									echo "</table>"; 

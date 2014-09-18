@@ -32,7 +32,6 @@
         header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
     ?>
-
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -86,6 +85,9 @@
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
                                 </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -119,43 +121,44 @@
 
 
     </div>
-    <!--conteudocentral -->
+    <!-- /#wrapper -->
     <div id="page-wrapper">
-            <br />
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Cadastro de Rua
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form onsubmit='return valida_rua(this)' role="form" action='rua_adicionar.php' method='POST'>
-                                        <div class="form-group">
-                                            <p><b>Nome:</b><br />
-                                            <input class="form-control" type='text' name='descricao'/>
-                                            <p class="help-block">Exemplo: Rua. Independência</p>
-                                            <input type='submit' class='btn btn-default' value=' Salvar ' />
-                                            <input type='hidden' value='1' name='submitted' />
-                                            <input type='reset' class='btn btn-default' value=' Limpar ' />
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
+    	<br />
+    	<div class="panel panel-default">
+    		<div class="panel panel-heading">
+    			Editar
+    		</div>
+            <?php 
+                include('conecta.php'); 
+                if (isset($_GET['id_ciclo']) ) { 
+                $id_ciclo = (int) $_GET['id_ciclo']; 
+                if (isset($_POST['submitted'])) { 
+                foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
+                $sql = "UPDATE `ciclo` SET  `data_inicio` =  '{$_POST['data_inicio']}' ,  `data_fim` =  '{$_POST['data_fim']}' ,  `numero` =  '{$_POST['numero']}' ,  `anoBase` =  '{$_POST['anoBase']}'   WHERE `id_ciclo` = '$id_ciclo' "; 
+                mysql_query($sql) or die(mysql_error()); 
+                echo (mysql_affected_rows()) ? 
+                    "<script type='text/javascript'>
+                        window.location.href = 'gerenciamentociclo_listar.php?msg_ok=Alteração salva com sucesso!'
+                    </script>" 
+                    : 
+                    "<script type='text/javascript'>
+                        window.location.href = 'gerenciamentociclo_listar.php?msg_erro=Erro ao salvar!'
+                    </script>";
+                } 
+                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `ciclo` WHERE `id_ciclo` = '$id_ciclo' ")); 
+            ?>
+
+                <form action='' method='POST'>
+                <p><b>Data Inicio:</b><br /><input type='text' name='data_inicio' value='<?= stripslashes($row['data_inicio']) ?>' /> 
+                <p><b>Data Fim:</b><br /><input type='text' name='data_fim' value='<?= stripslashes($row['data_fim']) ?>' /> 
+                <p><b>Numero:</b><br /><input type='text' name='numero' value='<?= stripslashes($row['numero']) ?>' /> 
+                <p><b>AnoBase:</b><br /><input type='text' name='anoBase' value='<?= stripslashes($row['anoBase']) ?>' /> 
+                <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
+                </form> 
+                <?php } ?> 
+ 
+        </div>
     </div>
-        <!-- /conteudocentral -->
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
@@ -171,16 +174,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-    <script type="text/javascript">
-        function valida_rua(form) {
-            if(form.descricao.value="") {
-                form.descricao.focus();
-                alert("asdfgiobhflksjgnbsdkbnskv");
-                return false;
-            }
-        }
-    </script>
-
+    
 </body>
 
 </html>

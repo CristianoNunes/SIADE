@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -134,10 +134,10 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action='agente_adicionar.php' method='POST'>
+                                    <form onsubmit="return valida(this)" role="form" action='agente_adicionar.php' method='POST'>
                                         <div class="form-group">
                                             <p><b>Campanha:</b>
-                                            <select name="campanha_id_campanha">
+                                            <select class='form-control' name="campanha_id_campanha">
                                             <?php
                                                 include('conecta.php');
                                                 $result = mysql_query("SELECT * FROM `campanha`") or trigger_error(mysql_error()); 
@@ -149,14 +149,20 @@
                                             ?>
                                             </select>
                                             
-                                            <p><b>Barra:</b><br /><input type='text' name='barra'/> 
-                                            <p><b>Nome:</b><br /><input type='text' name='nome'/> 
-                                            <p><b>Telefone:</b><br /><input type='text' name='telefone'/> 
-                                            <p><b>Celular:</b><br /><input type='text' name='celular'/> 
-                                            <p><b>Login:</b><br /><input type='text' name='login'/> 
-                                            <p><b>Senha:</b><br /><input type='password' name='senha'/>
-                                            <p><b>Nivel:</b><br />
-                                            <select name="nivel_id_nivel">
+                                            <p><b>Barra:</b>
+                                            <input class='form-control' type='text' name='barra'/> 
+                                            <p><b>Nome:</b>
+                                            <input class='form-control' type='text' name='nome'/> 
+                                            <p><b>Telefone:</b>
+                                            <input placeholder='XX XXXXXXXX' onblur='tel(this.form)' maxlength='11' class='form-control' type='text' name='telefone'/> 
+                                            <p><b>Celular:</b>
+                                            <input placeholder='XX XXXXXXXX' onblur='cel(this.form)' maxlength='11' class='form-control' type='text' name='celular'/> 
+                                            <p><b>Login:</b>
+                                            <input class='form-control' type='text' name='login'/> 
+                                            <p><b>Senha:</b>
+                                            <input class='form-control' type='password' name='senha'/>
+                                            <p><b>Nivel:</b>
+                                            <select class='form-control' name="nivel_id_nivel">
                                             <?php
                                                 include('conecta.php');
                                                 $result = mysql_query("SELECT * FROM `nivel`") or trigger_error(mysql_error()); 
@@ -167,8 +173,10 @@
 
                                             ?>
                                             </select>
-
-                                        <p><input type='submit' value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
+                                        <br />
+                                        <input type='submit' class="btn btn-success" value=' Salvar ' />
+                                        <input type='hidden' value='1' name='submitted' />
+                                        <input type='reset' class='btn btn-default' value=' Limpar ' /> 
                                         </div>
 
                                     </form>
@@ -203,6 +211,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
+    <script src="js/valida.js"></script>
 
 </body>
 

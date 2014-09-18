@@ -1,7 +1,7 @@
 <? 
 include('conecta.php'); 
-$id_bairro = (int) $_GET['id_bairro']; 
-mysql_query("DELETE FROM `bairro` WHERE `id_bairro` = '$id_bairro' ") ; 
+$id = (int) $_GET['id']; 
+mysql_query("DELETE FROM `bairro` WHERE `id_bairro` = '$id' ") ; 
 echo (mysql_affected_rows()) ? 
 		"<script type='text/javascript'>
             window.location.href = 'bairro_listar.php?msg_ok=Excluído com sucesso!'

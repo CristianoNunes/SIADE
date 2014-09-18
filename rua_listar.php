@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -138,9 +138,15 @@
                         echo $_GET['msg_ok'];
                         echo "</div>";
                     }else if(isset($_GET['msg_erro'])){
-                        echo "<div class='alert alert-danger'>
+                        echo "<div class='alert alert-warning'>
                             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
                         echo $_GET['msg_erro'];
+                        echo "</div>";
+                    }else if(isset($_GET['id'])){
+                        echo "<div id='info'>";
+                        echo "Deseja realmente excluir? 
+                            <a href='rua_deletar.php?id=".$_GET['id']."'class='btn btn-success'> Sim </a>
+                            <a href='rua_listar.php?' class='btn btn-danger'> Não </a>";
                         echo "</div>";
                     }
                 ?>
@@ -148,18 +154,20 @@
                 <div class="table-responsive">
                 <?php 
                     include('conecta.php'); 
-                    echo "<table class='table table-striped' >"; 
-                    echo "<tr>"; 
-                    echo "<td><b>Rua</b></td>";
+                    echo "<table class='table table-striped table-hover'> "; 
+                    echo "<thead>"; 
+                    echo "<th><b>Rua</b></td>";
                     echo "<td></td>";
                     echo "<td></td>";
-                    echo "</tr>"; 
+                    echo "</thead>"; 
                     $result = mysql_query("SELECT * FROM `rua`") or trigger_error(mysql_error()); 
                     while($row = mysql_fetch_array($result)){ 
                     foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
                     echo "<tr>";    
                     echo "<td valign='top'>" . nl2br( $row['descricao']) . "</td>";  
-                    echo "<td valign='top'><a class='btn btn-warning' href=rua_editar.php?id_rua={$row['id_rua']}>Editar</a></td><td><a class='btn btn-danger' href=rua_deletar.php?id_rua={$row['id_rua']}>Excluir</a></td> "; 
+                    echo "<td colspan='2' align='right' valign=\"top\">
+                    <a class=\"btn btn-warning btn-xs\" href=\"rua_editar.php?id=".$row['id_rua']."\"> Editar </a>
+                    <a class=\"btn btn-danger btn-xs\" href=\"rua_listar.php?id=".$row['id_rua']."\"> Excluir </a></td> ";
                     echo "</tr>"; 
                     } 
                     echo "</table>";  

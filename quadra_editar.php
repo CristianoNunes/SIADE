@@ -90,7 +90,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -125,11 +125,14 @@
                 </div>
                 <?php 
                     include('conecta.php'); 
-                    if (isset($_GET['id_quadra']) ) { 
-                    $id_quadra = (int) $_GET['id_quadra']; 
+                    if (isset($_GET['id']) ) { 
+                    $id = (int) $_GET['id']; 
                     if (isset($_POST['submitted'])) { 
                     foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                    $sql = "UPDATE `quadra` SET  `identificacao` =  '{$_POST['identificacao']}' ,  `bairro_id_bairro` =  '{$_POST['bairro_id_bairro']}'   WHERE `id_quadra` = '$id_quadra' "; 
+                    $sql = "UPDATE `quadra`
+                        SET  `identificacao` =  '{$_POST['identificacao']}' ,  
+                            `bairro_id_bairro` =  '{$_POST['id_bairro']}'   
+                        WHERE `id_quadra` = '$id' "; 
                     mysql_query($sql) or die(mysql_error()); 
                     echo (mysql_affected_rows()) ?   
                     "<script type='text/javascript'>
@@ -137,16 +140,31 @@
                     </script>" 
                     : 
                     "<script type='text/javascript'>
-                        window.location.href = 'quadra_listar.php?msg_erro=Erro ao salvar!'
+                        window.location.href = 'quadra_listar.php?msg_erro=Nenhuma alteração realizada!'
                     </script>"; 
                     } 
-                    $row = mysql_fetch_array ( mysql_query("SELECT * FROM `quadra` WHERE `id_quadra` = '$id_quadra' ")); 
-                ?>
+                    
 
+                    $row = mysql_fetch_array ( mysql_query("SELECT * FROM quadra
+                        WHERE `id_quadra` = '$id' ")); 
+                ?>
                     <form action='' method='POST'> 
-                    <p><b>Identificacao:</b><br /><input type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
-                    <p><b>Bairro:</b><br /><input type='text' name='bairro_id_bairro' value='<?= stripslashes($row['bairro_id_bairro']) ?>' /> 
-                    <p><input type='submit' value='Salvar' class="btn btn-success" /><input type='hidden' value='1' name='submitted' /> 
+                    <p><b>Identificacao:</b><br /><input class="form-control" type='text' name='identificacao' value='<?= stripslashes($row['identificacao']) ?>' /> 
+                    <p><b>Bairro:</b>
+                    <select name='id_bairro' class='form-control'>
+                        <?
+                            $result = mysql_query("SELECT * FROM bairro") 
+                            or trigger_error(mysql_error()); 
+                            while($row = mysql_fetch_array($result)){ 
+                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                    echo "<option value='". stripslashes($row['id_bairro']) ."'> ". $row['nome_bairro'] ." </option>";
+                            }
+
+                        ?>
+                    </select>
+
+                    <p><input type='submit' class='btn btn-default' value=' Salvar ' name='submitted' />
+                    <a href='quadra_listar.php' class='btn btn-default'> Voltar </a>  
                     </form> 
                     <?php } ?> 
         

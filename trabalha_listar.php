@@ -21,6 +21,8 @@
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    </script>
+
 </head>
 
 <body>
@@ -86,6 +88,9 @@
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
                                 </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -127,21 +132,40 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Cadastro de Rua
+                            Gerenciamento de Ciclo - Divisão
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form onsubmit='return valida_rua(this)' role="form" action='rua_adicionar.php' method='POST'>
+                                    
                                         <div class="form-group">
-                                            <p><b>Nome:</b><br />
-                                            <input class="form-control" type='text' name='descricao'/>
-                                            <p class="help-block">Exemplo: Rua. Independência</p>
-                                            <input type='submit' class='btn btn-default' value=' Salvar ' />
-                                            <input type='hidden' value='1' name='submitted' />
-                                            <input type='reset' class='btn btn-default' value=' Limpar ' />
+                                            <?php 
+                                                include('conecta.php'); 
+                                                echo "<table class='table table-striped table-hover'>"; 
+                                                echo "<tr>";  
+                                                echo "<td><b>Agente</b></td>";
+                                                echo "<td><b>Bairro</b></td>"; 
+                                                echo "<td><b>Quadras</b></td>";
+                                                echo "<td></td>";
+                                                echo "<td></td>";
+                                                echo "</tr>"; 
+                                                $result = mysql_query("SELECT * FROM `trabalha`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+                                                echo "<tr>";    
+                                                echo "<td valign='top'>" . nl2br( $row['agente_id_agente']) . "</td>";  
+                                                echo "<td valign='top'>" . nl2br( $row['quadra_bairro_id_bairro']) . "</td>";
+                                                echo "<td valign='top'>" . nl2br( $row['quadra_id_quadra']) . "</td>";
+                                                echo "<td colspan='2' align='right' valign='top'>
+                    <a class='btn btn-warning btn-xs' href=trabalha_editar.php?id_trabalha={$row['id_trabalha']}> Editar </a>
+                    <a class='btn btn-danger btn-xs' href=trabalha_deletar.php?id_trabalha={$row['id_trabalha']}> Excluir </a></td> "; 
+                                                echo "</tr>"; 
+                                                } 
+                                                echo "</table>"; 
+                                                ?>
                                         </div>
-                                    </form>
+                                       <a href="trabalha.php" class="btn btn-success">Adicionar</a> 
+                                    
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                             </div>
@@ -171,15 +195,6 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-    <script type="text/javascript">
-        function valida_rua(form) {
-            if(form.descricao.value="") {
-                form.descricao.focus();
-                alert("asdfgiobhflksjgnbsdkbnskv");
-                return false;
-            }
-        }
-    </script>
 
 </body>
 

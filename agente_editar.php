@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -124,45 +124,77 @@
     <div id="page-wrapper">
     	<br />
         <div class="row">
-    	<div class="panel panel-default">
-    		<div class="panel panel-heading">
-    			Editar
-    		</div>
-            <div class="panel-body">
-            <form action='' method='POST'>
-            <?php 
-                include('conecta.php'); 
-                if (isset($_GET['id']) ) {
-                $id_agente = $_GET['id'];
-                if (isset($_POST['submitted'])) { 
-                foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-                $sql = "UPDATE `agente` SET  `barra` =  '{$_POST['barra']}' ,  `nome` =  '{$_POST['nome']}' ,  `telefone` =  '{$_POST['telefone']}' ,  `celular` =  '{$_POST['celular']}' ,  `login` =  '{$_POST['login']}' ,  `senha` =  '{$_POST['senha']}' ,  `nivel_id_nivel` =  '{$_POST['nivel_id_nivel']}' ,  `campanha_id_campanha` =  '{$_POST['campanha_id_campanha']}'   WHERE `id_agente` = '$id_agente' "; 
-                mysql_query($sql) or die(mysql_error()); 
-                echo (mysql_affected_rows()) ?  
-                    "<script type='text/javascript'>
-                        window.location.href = 'agente_listar.php?msg_ok=Alteração salva com sucesso!'
-                    </script>" 
-                    : 
-                    "<script type='text/javascript'>
-                        window.location.href = 'agente_listar.php?msg_erro=Erro ao salvar!'
-                    </script>";
-                } 
-                $row = mysql_fetch_array ( mysql_query("SELECT * FROM `agente` WHERE `id_agente` = '$id_agente' ")); 
-                ?>
- 
-                <p><b>Barra:</b><br /><input type='text' name='barra' value='<?= stripslashes($row['barra']) ?>' /> 
-                <p><b>Nome:</b><br /><input type='text' name='nome' value='<?= stripslashes($row['nome']) ?>' /> 
-                <p><b>Telefone:</b><br /><input type='text' name='telefone' value='<?= stripslashes($row['telefone']) ?>' /> 
-                <p><b>Celular:</b><br /><input type='text' name='celular' value='<?= stripslashes($row['celular']) ?>' />
-                <p><b>Login:</b><br /><input type='text' name='login' value='<?= stripslashes($row['login']) ?>' /> 
-                <p><b>Senha:</b><br /><input type='text' name='senha' value='<?= stripslashes($row['senha']) ?>' /> 
-                <p><b>Nivel:</b><br /><input type='text' name='nivel_id_nivel' value='<?= stripslashes($row['nivel_id_nivel']) ?>' /> 
-                <p><b>Campanha:</b><br /><input type='text' name='campanha_id_campanha' value='<?= stripslashes($row['campanha_id_campanha']) ?>' /> 
-                <p><input type='submit' value='Salvar' class="btn btn-success" /><input type='hidden' value='1' name='submitted' /> 
-            </form> 
-                <?php } ?> 
-            </div>
-        </div>         
+        	<div class="panel panel-default">
+        		<div class="panel panel-heading">
+        			Editar
+        		</div>
+                <div class="panel-body">
+                    <form onsubmit="return valida(this)" role="form" method='POST'>
+                        <div class="form-group">
+                            <?php 
+                                include('conecta.php'); 
+                                if (isset($_GET['id']) ) {
+                                    $id = $_GET['id'];
+                                    if (isset($_POST['submitted'])) { 
+                                        foreach($_POST AS $key => $value) { 
+                                            $_POST[$key] = mysql_real_escape_string($value); 
+                                        } 
+                                        $sql = "UPDATE agente as a
+                                        inner join nivel as n on a.nivel_id_nivel = n.id_nivel
+                                        SET  `barra` =  '{$_POST['barra']}' ,  
+                                            `nome` =  '{$_POST['nome']}' ,  
+                                            `telefone` =  '{$_POST['telefone']}' ,  
+                                            `celular` =  '{$_POST['celular']}' ,  
+                                            `login` =  '{$_POST['login']}' ,  
+                                            `senha` =  '{$_POST['senha']}' ,  
+                                            `nivel_id_nivel` =  '{$_POST['id_nivel']}'   
+                                        WHERE `id_agente` = '$id' "; 
+                                        mysql_query($sql) or die(mysql_error()); 
+                                        echo (mysql_affected_rows()) ?  
+                                        "<script type='text/javascript'>
+                                            window.location.href = 'agente_listar.php?msg_ok=Alteração salva com sucesso!'
+                                        </script>" 
+                                        : 
+                                        "<script type='text/javascript'>
+                                            window.location.href = 'agente_listar.php?msg_erro=Nenhuma alteração realizada!'
+                                        </script>";
+                                    } 
+
+                                    $row = mysql_fetch_array ( mysql_query("SELECT * FROM agente
+                                    WHERE `id_agente` = '$id' ")); 
+                            ?>
+         
+                            <p><b>Barra:</b>
+                            <input class='form-control' type='text' name='barra' value='<?= stripslashes($row['barra']) ?>' /> 
+                            <p><b>Nome:</b>
+                            <input class='form-control' type='text' name='nome' value='<?= stripslashes($row['nome']) ?>' /> 
+                            <p><b>Telefone:</b>
+                            <input placeholder='XX XXXXXXXX' onblur='tel(this.form)' maxlength='11' class='form-control' type='text' name='telefone' value='<?= stripslashes($row['telefone']) ?>' /> 
+                            <p><b>Celular:</b>
+                            <input placeholder='XX XXXXXXXX' onblur='cel(this.form)' maxlength='11' class='form-control' type='text' name='celular' value='<?= stripslashes($row['celular']) ?>' />
+                            <p><b>Login:</b>
+                            <input class='form-control' type='text' name='login' value='<?= stripslashes($row['login']) ?>' /> 
+                            <p><b>Senha:</b>
+                            <input class='form-control' type='password' name='senha' value='<?= stripslashes($row['senha']) ?>' /> 
+                            <p><b>Nivel:</b>
+                            <select name='id_nivel' class='form-control'>
+                                <?
+                                    $result = mysql_query("SELECT * FROM nivel") 
+                                    or trigger_error(mysql_error()); 
+                                    while($row = mysql_fetch_array($result)){ 
+                                        foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                        echo "<option value='". stripslashes($row['id_nivel']) ."'> ". $row['descricao'] ." </option>";
+                                    }
+                                ?>
+                            </select>
+
+                            <p><input type='submit' class='btn btn-default' value=' Salvar ' /><input type='hidden' value='1' name='submitted' />
+                            <a href='agente_listar.php' class='btn btn-default'> Voltar </a> 
+                        </div>
+                    </form> 
+                    <?php } ?> 
+                </div>
+            </div>         
         </div>
     </div>
 
@@ -180,7 +212,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-    
+    <script src="js/valida.js"></script>
 </body>
 
 </html>

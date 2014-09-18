@@ -93,22 +93,22 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.html"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="d1.html">D1</a>
+                                    <a href="d1.php">D1</a>
                                 </li>
                                 <li>
-                                    <a href="d7.html">D7</a>
+                                    <a href="d7.php">D7</a>
                                 </li>
                                 <li>
-                                    <a href="ciclo.html">Ciclo</a>
+                                    <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.html">Pendentes</a>
+                                    <a href="pendentes.php">Pendentes</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

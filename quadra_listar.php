@@ -92,7 +92,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -138,9 +138,15 @@
                         echo $_GET['msg_ok'];
                         echo "</div>";
                     }else if(isset($_GET['msg_erro'])){
-                        echo "<div class='alert alert-danger'>
+                        echo "<div class='alert alert-warning'>
                             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
                         echo $_GET['msg_erro'];
+                        echo "</div>";
+                    }else if(isset($_GET['id'])){
+                        echo "<div id='info'>";
+                        echo "Deseja realmente excluir? 
+                            <a href='quadra_deletar.php?id=".$_GET['id']."'class='btn btn-success'> Sim </a>
+                            <a href='quadra_listar.php?' class='btn btn-danger'> Não </a>";
                         echo "</div>";
                     }
                 ?>
@@ -148,20 +154,23 @@
                     <div class="table-responsive">
                         <? 
                             include('conecta.php'); 
-                            echo "<table class='table table-striped'>"; 
-                            echo "<tr>"; 
-                            echo "<td><b>Nº da Quadra</b></td>";
-                            echo "<td><b>Bairro</b></td>";
+                            echo "<table class='table table-striped table-hover'>"; 
+                            echo "<thead>"; 
+                            echo "<th><b>Nº da Quadra</b></td>";
+                            echo "<th><b>Bairro</b></td>";
                             echo "<td></td>"; 
                             echo "<td></td>";
-                            echo "</tr>"; 
-                            $result = mysql_query("SELECT * FROM `quadra`") or trigger_error(mysql_error()); 
+                            echo "</thead>"; 
+                            $result = mysql_query("SELECT * FROM quadra as q
+                                inner join bairro as b on q.bairro_id_bairro = b.id_bairro") or trigger_error(mysql_error()); 
                             while($row = mysql_fetch_array($result)){ 
                             foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
                             echo "<tr>";
                             echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";
-                            echo "<td valign='top'>" . nl2br( $row['bairro_id_bairro']) . "</td>";
-                            echo "<td valign='top'><a class='btn btn-warning' href=quadra_editar.php?id_quadra={$row['id_quadra']}>Editar</a></td><td><a class='btn btn-danger' href=quadra_deletar.php?id_quadra={$row['id_quadra']}>Excluir</a></td> "; 
+                            echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";
+                            echo "<td colspan='2' align='right' valign=\"top\">
+                            <a class=\"btn btn-warning btn-xs\" href=\"quadra_editar.php?id=".$row['id_quadra']."\"> Editar </a>
+                            <a class=\"btn btn-danger btn-xs\" href=\"quadra_listar.php?id=".$row['id_quadra']."\"> Excluir </a></td> ";
                             echo "</tr>"; 
                             } 
                             echo "</table>"; 

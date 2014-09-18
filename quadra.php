@@ -90,7 +90,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -132,7 +132,7 @@
                                     <form role="form" action='quadra_adicionar.php' method='POST'>
                                         <div class="form-group">
                                             <p><b>Bairro:</b>
-                                            <select name="bairro_id_bairro">
+                                            <select class="form-control" name="bairro_id_bairro">
                                             <?php
                                                 include('conecta.php');
                                                 $result = mysql_query("SELECT * FROM `bairro`") or trigger_error(mysql_error()); 
@@ -143,9 +143,9 @@
 
                                             ?>
                                             </select>
-                                            <p><b>Nº da Quadra:</b><br /><input type='text' name='identificacao'/> 
+                                            <p><b>Nº da Quadra:</b><br /><input class="form-control" type='text' name='identificacao'/> 
                                             
-                                            <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' />
+                                            <p><button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' />
                                     </div>
                                     </form>
                                 </div>
