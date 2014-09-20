@@ -180,16 +180,7 @@
 
                                             ?>
                                             </select>
-                                            <p><b>Ciclo:</b>
-                                            <select class='form-control' name="ciclo_id_ciclo">
-                                            <?php
-                                                $result = mysql_query("SELECT * FROM `ciclo`") or trigger_error(mysql_error()); 
-                                                while($row = mysql_fetch_array($result)){ 
-                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
-                                                echo "<option value='". $row['id_ciclo'] ."'> ". $row['numero'] ." </option>";
-                                                }
-
-                                            ?>
+                                            
                                             </select>
                                             <p><b>Bairro:</b></p>
                                             <select name="quadra_bairro_id_bairro" class='form-control' id="bairros_id" style="width: 150px">    
@@ -207,6 +198,7 @@
                                             <select multiple="multiple" class='form-control' name="quadra_id_quadra[]" id="quadras_id" style="width: 50px" style="heigth: 50px" >
 
                                             </select>
+                                            <input type='hidden' value='<?php echo $ciclo; ?>' name='ciclo_id_ciclo' />
                                             <input type='hidden' value='<?php echo $ciclo; ?>' name='id_ciclo' />
                                         </div>
                                         <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
