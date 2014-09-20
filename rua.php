@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php 
+function __autoload($class_name){
+    require_once $class_name.".php";
+}
+?>
 <html>
 
 <head>
@@ -20,13 +25,21 @@
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <script type="text/javascript">
+        function validarua() {
+            if(document.form.descricao.value == '') {
+                document.form.descricao.focus();
+                return false;
+            }
+        }
+    </script>
 
 </head>
 
 <body>
     <?php session_start(); 
     if(isset($_SESSION['auth'])){
-        include 'conecta.php';
+        $obj = Conexao::getInstance();
     }else{
         session_destroy();
         header("LOCATION:index.php?msg_erro=Acesso negado!");
@@ -86,11 +99,14 @@
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
                                 </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -105,7 +121,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -132,7 +160,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form onsubmit='return valida_rua(this)' role="form" action='rua_adicionar.php' method='POST'>
+                                    <form onsubmit="return validarua()" name="form" role="form" action='rua_adicionar.php' method='POST'>
                                         <div class="form-group">
                                             <p><b>Nome:</b><br />
                                             <input class="form-control" type='text' name='descricao'/>
@@ -171,15 +199,6 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-    <script type="text/javascript">
-        function valida_rua(form) {
-            if(form.descricao.value="") {
-                form.descricao.focus();
-                alert("asdfgiobhflksjgnbsdkbnskv");
-                return false;
-            }
-        }
-    </script>
 
 </body>
 

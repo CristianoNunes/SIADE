@@ -112,7 +112,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

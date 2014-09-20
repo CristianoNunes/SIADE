@@ -107,7 +107,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -138,46 +150,58 @@
                         echo $_GET['msg_ok'];
                         echo "</div>";
                     }else if(isset($_GET['msg_erro'])){
-                        echo "<div class='alert alert-danger'>
+                        echo "<div class='alert alert-warning'>
                             <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
                         echo $_GET['msg_erro'];
+                        echo "</div>";
+                    }else if(isset($_GET['id'])){
+                        echo "<div id='info'>";
+                        echo "Deseja realmente excluir? 
+                            <a href='imovel_deletar.php?id=".$_GET['id']."'class='btn btn-success'> Sim </a>
+                            <a href='imovel_listar.php?' class='btn btn-danger'> Não </a>";
                         echo "</div>";
                     }
                 ?>
                 
                 <div class="table-responsive">
-        <? 
+        <?php 
             include('conecta.php'); 
-            echo "<table class='table table-striped'>"; 
+            echo "<table class='table table-striped table-hover'>"; 
             echo "<tr>"; 
-            echo "<td><b>Id Imovel</b></td>"; 
-            echo "<td><b>Quantidade Habitantes</b></td>"; 
-            echo "<td><b>Quantidade Caes</b></td>"; 
-            echo "<td><b>Quantidade Gatos</b></td>"; 
+            echo "<td><b>Bairro</b></td>";
+            echo "<td><b>Quadra</b></td>"; 
+            echo "<td><b>Lado</b></td>";
+            echo "<td><b>Rua</b></td>"; 
             echo "<td><b>Numero Imovel</b></td>"; 
-            echo "<td><b>Ladoquadra</b></td>"; 
-            echo "<td><b>Quadra Bairro Id</b></td>"; 
-            echo "<td><b>Quadra Id Quadra</b></td>"; 
-            echo "<td><b>Quadra Bairro Id Bairro</b></td>"; 
-            echo "<td><b>Rua Id Rua</b></td>"; 
-            echo "<td><b>Tipo Imovel Id Tipo Imovel</b></td>"; 
+            echo "<td><b>Tipo Imovel</b></td>"; 
+            echo "<td><b>Quantidade Habitantes</b></td>"; 
+            echo "<td><b>Quantidade Cães</b></td>"; 
+            echo "<td><b>Quantidade Gatos</b></td>";
+            echo "<td></td>";
+            echo "<td></td>";
             echo "</tr>"; 
-            $result = mysql_query("SELECT * FROM `imovel`") or trigger_error(mysql_error()); 
+            $result = mysql_query("SELECT * FROM `imovel` as i
+            inner join quadra as q on i.quadra_bairro_id_bairro = q.bairro_id_bairro
+            and i.quadra_id_quadra = q.id_quadra
+            inner join bairro as b on q.bairro_id_bairro = b.id_bairro
+            inner join rua as r on i.rua_id_rua = r.id_rua
+            inner join tipo_imovel as ti on i.tipo_imovel_id_tipo_imovel = ti.id_tipo_imovel
+            ") or trigger_error(mysql_error()); 
             while($row = mysql_fetch_array($result)){ 
             foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-            echo "<tr>";  
-            echo "<td valign='top'>" . nl2br( $row['id_imovel']) . "</td>";  
+            echo "<tr>";    
+            echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";
+            echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";
+            echo "<td valign='top'>" . nl2br( $row['ladoquadra']) . "</td>";     
+            echo "<td valign='top'>" . nl2br( $row['descricao']) . "</td>";
+            echo "<td valign='top'>" . nl2br( $row['numero_imovel']) . "</td>";  
+            echo "<td valign='top'>" . nl2br( $row['sigla']) . "</td>";  
             echo "<td valign='top'>" . nl2br( $row['quantidade_habitantes']) . "</td>";  
             echo "<td valign='top'>" . nl2br( $row['quantidade_caes']) . "</td>";  
             echo "<td valign='top'>" . nl2br( $row['quantidade_gatos']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['numero_imovel']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['ladoquadra']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['Quadra_Bairro_id']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['quadra_id_quadra']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['quadra_bairro_id_bairro']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['rua_id_rua']) . "</td>";  
-            echo "<td valign='top'>" . nl2br( $row['tipo_imovel_id_tipo_imovel']) . "</td>";  
-            echo "<td valign='top'><a href=imovel_editar.php?id_imovel={$row['id_imovel']}>Edit</a></td><td><a href=imovel_deletar.php?id_imovel={$row['id_imovel']}>Delete</a></td> "; 
+            echo "<td colspan='2' align='right' valign='top'>
+                    <a class='btn btn-warning btn-xs' href=imovel_editar.php?id_imovel={$row['id_imovel']}> Editar </a>
+                    <a class='btn btn-danger btn-xs' href=imovel_deletar.php?id_imovel={$row['id_imovel']}> Excluir </a></td> "; 
             echo "</tr>"; 
             } 
             echo "</table>"; 

@@ -45,7 +45,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="principal.html">SIADE</a>
+                <a class="navbar-brand" href="principal.php">SIADE</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -58,7 +58,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil</a>
                         </li>
-                        <li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        <li><a href="configuracoes.php"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
@@ -110,7 +110,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -137,18 +149,30 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action="visita_listar_ciclo.php" method='POST'>
                                         <div class="form-group">
-                                            <label>Agentes</label>
-                                            <select class="form-control">
-                                                <option>Cristiano Nunes</option>
-                                                <option>Diego Oliveira</option>
-                                                <option>Felipe Tomaz</option>
-                                                <option>Geraldo Lopes</option>
-                                                <option>Djalma Medeiros</option>
+                                            <label>Agente:</label>
+                                            <select class='form-control' name="agente_id_agente">
+                                            <?php
+                                                include('conecta.php');
+                                                $result = mysql_query("SELECT * FROM `agente`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_agente'] ."'> ". $row['nome'] ." </option>";
+                                                }
+                                            ?>
                                             </select>
                                             <label>Ciclo</label>
-                                            <input class="form-control">
+                                            <select class="form-control" name="ciclo_id_ciclo">
+                                                <?php
+                                                include('conecta.php');
+                                                $result = mysql_query("SELECT * FROM `ciclo`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_ciclo'] ."'> ". $row['numero'] ." </option>";
+                                                }
+                                            ?>
+                                            </select>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Procurar</button>
                                     </form>

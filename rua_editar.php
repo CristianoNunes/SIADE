@@ -108,7 +108,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -125,10 +137,16 @@
     <!--conteudocentral -->
     <div id="page-wrapper">
         <br />
-        <div class="panel panel-default">
-            <div class="panel panel-heading">
-                Editar
-            </div>
+    <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Editar Rua
+                     </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
         <?php 
             include('conecta.php'); 
             if (isset($_GET['id']) ) { 
@@ -151,11 +169,22 @@
 
             <form action='' method='POST'> 
             <p><b>Rua:</b><input class="form-control" type='text' name='descricao' value='<?= stripslashes($row['descricao']) ?>' /> 
-            <p><input class="btn btn-default" type='submit' value='Salvar' name='submitted' /> 
+            <p><input class="btn btn-success" type='submit' value='Salvar' name='submitted' /> 
             <a href='rua_listar.php' class='btn btn-default'> Voltar </a>
             </form> 
             <?php } ?> 
         </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
     </div>
         <!-- /conteudocentral -->
 

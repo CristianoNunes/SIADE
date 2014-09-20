@@ -36,6 +36,7 @@
     <?php session_start(); 
     if(isset($_SESSION['auth'])){
         include 'conecta.php';
+        $ciclo = $_GET['id_ciclo'];
     }else{
         session_destroy();
         header("LOCATION:index.php?msg_erro=Acesso negado!");
@@ -117,7 +118,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -146,10 +159,19 @@
                                 <div class="col-lg-6">
                                     <form role="form" action='trabalha_adicionar.php' method='POST'>
                                         <div class="form-group">
+                                            <?php 
+                                                if(isset($_GET['id_ciclo'])){                
+                                                $ciclo = $_GET['id_ciclo'];
+                                            }
+                                            if(isset($_POST['id_ciclo'])){
+                                                $ciclo = $_POST['id_ciclo'];
+                                            }
+
+                                            
+                                            ?>
                                             <p><b>Agente:</b>
                                             <select class='form-control' name="agente_id_agente">
                                             <?php
-                                                include('conecta.php');
                                                 $result = mysql_query("SELECT * FROM `agente`") or trigger_error(mysql_error()); 
                                                 while($row = mysql_fetch_array($result)){ 
                                                 foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
@@ -158,22 +180,34 @@
 
                                             ?>
                                             </select>
-                                            <p><b>Ciclo Id Ciclo:</b><br /><input type='text' name='ciclo_id_ciclo'/> 
-                                            <p><b>Bairro:</b>
-                                            <select name="quadra_bairro_id_bairro" id="bairros_id">    
+                                            <p><b>Ciclo:</b>
+                                            <select class='form-control' name="ciclo_id_ciclo">
+                                            <?php
+                                                $result = mysql_query("SELECT * FROM `ciclo`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_ciclo'] ."'> ". $row['numero'] ." </option>";
+                                                }
+
+                                            ?>
+                                            </select>
+                                            <p><b>Bairro:</b></p>
+                                            <select name="quadra_bairro_id_bairro" class='form-control' id="bairros_id" style="width: 150px">    
                                                 <?php
                                                 $cidades2 = "SELECT id_bairro, nome_bairro FROM bairro ORDER BY nome_bairro";
                                                 $rs2 = mysql_query($cidades2);
                                                 echo("<option value='' selected>nome</option>");
                                                 while($linha = mysql_fetch_array($rs2,MYSQL_BOTH)) {
-                                                    echo("<option value='".$linha['id_bairro']."'>".$linha['nome_bairro']."</option>");//value = id
+                                                    echo("<option value='".$linha['id_bairro']."'>".$linha['nome_bairro']."</option>");
                                                 }
 
                                                 ?>
                                             </select>
-                                            <select multiple name="quadra_id_quadra[]"   id="quadras_id">
+                                            <p><b>Quadras:</b></p>
+                                            <select multiple="multiple" class='form-control' name="quadra_id_quadra[]" id="quadras_id" style="width: 50px" style="heigth: 50px" >
 
-                                            </select> 
+                                            </select>
+                                            <input type='hidden' value='<?php echo $ciclo; ?>' name='id_ciclo' />
                                         </div>
                                         <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
                                     </form>

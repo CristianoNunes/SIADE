@@ -23,15 +23,16 @@
 
 </head>
 
-<body>
+<body> 
     <?php session_start(); 
     if(isset($_SESSION['auth'])){
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
-  ?>
+    ?>
+
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -55,7 +56,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Perfil</a>
                         </li>
-                        <li><a href="configuracoes.php"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        <li><a href="configuracoes.html"><i class="fa fa-gear fa-fw"></i> Configurações</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
@@ -84,6 +85,9 @@
                                 </li>
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
+                                </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -130,56 +134,83 @@
 
 
     </div>
-    <!-- /#wrapper -->
+    <!--conteudocentral -->
     <div id="page-wrapper">
-    <br />
+            <br />
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Gerenciamento de Ciclo
+                            Relatório Diário - D1
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    
-						        <?php 
-									include('conecta.php'); 
-									echo "<table class='table table-striped'>"; 
-									echo "<tr>"; 
-									echo "<td><b>Ciclo</b></td>";
-									echo "<td><b>Data Inicio</b></td>"; 
-									echo "<td><b>Data Fim</b></td>"; 
-									echo "<td><b>Ano</b></td>";
-									echo "<td></td>";
-									echo "<td></td>";
-                                    echo "<td></td>";
-									echo "</tr>"; 
-									$result = mysql_query("SELECT * FROM `ciclo`") or trigger_error(mysql_error()); 
-									while($row = mysql_fetch_array($result)){ 
-									foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-									echo "<tr>";  
-									echo "<td valign='top'>" . nl2br( $row['numero']) . "</td>";
-									echo "<td valign='top'>" . nl2br( $row['data_inicio']) . "</td>";  
-									echo "<td valign='top'>" . nl2br( $row['data_fim']) . "</td>";  
-									echo "<td valign='top'>" . nl2br( $row['anoBase']) . "</td>";  
-									echo "<td valign='top'><a class='btn btn-warning' href=gerenciamentociclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td>
-                                    <td><a class='btn btn-danger' href=gerenciamentociclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> 
-                                    <td><a class='btn btn-info btn-circle' href=trabalha_listar.php?id_ciclo={$row['id_ciclo']}>+</a></td>"; 
-									echo "</tr>"; 
-									} 
-									echo "</table>"; 
-									?>
-                                    
-									<a href="gerenciamentociclo.php" class="btn btn-success">Novo</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <?php
+                                            
+                                            $data = $_POST['data'];
+                                            $agente = $_POST['agente_id_agente'];
+                                            
+                                                include('conecta.php'); 
+                                                echo "<table class='table table-striped table-hover'>"; 
+                                                echo "<tr>";
+                                                echo "<td><b>Ciclo</b></td>";
+                                                echo "<td><b>Semana</b></td>";
+                                                echo "<td><b>Data</b></td>";
+                                                echo "<td><b>Hora</b></td>";
+                                                echo "<td><b>Agente</b></td>";
+                                                echo "<td><b>Pendencia</b></td>";
+                                                echo "<td><b>Tipo Visita</b></td>"; 
+                                                echo "<td><b>Nº Imovel</b></td>"; 
+                                                echo "<td><b>Eliminados</b></td>"; 
+                                                echo "<td><b>Tratado</b></td>"; 
+                                                echo "<td><b>Remedio (grama)</b></td>"; 
+                                                echo "<td><b>Quantidade Tratado</b></td>"; 
+                                                echo "</tr>"; 
+                                                $result = mysql_query("SELECT * FROM `visita` as v    
+                                                 inner join agente as a on v.agente_id_agente = a.id_agente
+                                                 inner join imovel as i on v.imovel_id_imovel = i.id_imovel
+                                                 inner join ciclo as c on v.ciclo_id_ciclo = c.id_ciclo
+                                                 WHERE data='$data' AND agente_id_agente=$agente
+                                                    ") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+                                                echo "<tr>";
+                                                echo "<td valign='top'>" . nl2br( $row['numero']) . "</td>";
+                                                echo "<td valign='top'>" . nl2br( $row['semana']) . "</td>";
+                                                echo "<td valign='top'>" . nl2br( $row['data']) . "</td>";
+                                                echo "<td valign='top'>" . nl2br( $row['hora']) . "</td>";
+                                                echo "<td valign='top'>" . nl2br( $row['nome']) . "</td>";
+                                                echo "<td valign='top'>" . nl2br( $row['pendencia']) . "</td>";  
+                                                echo "<td valign='top'>" . nl2br( $row['tipo_visita']) . "</td>";  
+                                                echo "<td valign='top'>" . nl2br( $row['numero_imovel']) . "</td>";  
+                                                echo "<td valign='top'>" . nl2br( $row['eliminados']) . "</td>";  
+                                                echo "<td valign='top'>" . nl2br( $row['tratado']) . "</td>";  
+                                                echo "<td valign='top'>" . nl2br( $row['remedio']) . "</td>";  
+                                                echo "<td valign='top'>" . nl2br( $row['quantidade_tratado']) . "</td>";  
+                                                
+                                                echo "</tr>"; 
+                                                } 
+                                                echo "</table>";
+                                                ?>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
     </div>
+        <!-- /conteudocentral -->
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
@@ -195,7 +226,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-    
+
 </body>
 
 </html>

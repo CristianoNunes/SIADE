@@ -108,7 +108,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -135,18 +147,21 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" action="visita_listar_semana.php" method='POST'>
                                         <div class="form-group">
-                                            <label>Agentes</label>
-                                            <select class="form-control">
-                                                <option>Cristiano Nunes</option>
-                                                <option>Diego Oliveira</option>
-                                                <option>Felipe Tomaz</option>
-                                                <option>Geraldo Lopes</option>
-                                                <option>Djalma Medeiros</option>
+                                            <label>Agente:</label>
+                                            <select class='form-control' name="agente_id_agente">
+                                            <?php
+                                                include('conecta.php');
+                                                $result = mysql_query("SELECT * FROM `agente`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_agente'] ."'> ". $row['nome'] ." </option>";
+                                                }
+                                            ?>
                                             </select>
                                             <label>Semana</label>
-                                            <input class="form-control">
+                                            <input class="form-control" name="semana">
                                         </div>
                                         <button type="submit" class="btn btn-primary">Procurar</button>
                                     </form>

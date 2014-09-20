@@ -29,9 +29,10 @@
         include 'conecta.php';
     }else{
         session_destroy();
-        header("LOCATION:index.php?msg=SESSAO_FINALIZADA");
+        header("LOCATION:index.php?msg_erro=Acesso negado!");
     }
-  ?>
+    ?>
+
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
@@ -85,6 +86,9 @@
                                 <li>
                                     <a href="imovel_listar.php">Imóvel</a>
                                 </li>
+                                <li>
+                                    <a href="rua_listar.php">Rua</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -130,56 +134,52 @@
 
 
     </div>
-    <!-- /#wrapper -->
+    <!--conteudocentral -->
     <div id="page-wrapper">
-    <br />
+            <br />
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Gerenciamento de Ciclo
+                            Relatório Pendentes - Semana
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    
-						        <?php 
-									include('conecta.php'); 
-									echo "<table class='table table-striped'>"; 
-									echo "<tr>"; 
-									echo "<td><b>Ciclo</b></td>";
-									echo "<td><b>Data Inicio</b></td>"; 
-									echo "<td><b>Data Fim</b></td>"; 
-									echo "<td><b>Ano</b></td>";
-									echo "<td></td>";
-									echo "<td></td>";
-                                    echo "<td></td>";
-									echo "</tr>"; 
-									$result = mysql_query("SELECT * FROM `ciclo`") or trigger_error(mysql_error()); 
-									while($row = mysql_fetch_array($result)){ 
-									foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-									echo "<tr>";  
-									echo "<td valign='top'>" . nl2br( $row['numero']) . "</td>";
-									echo "<td valign='top'>" . nl2br( $row['data_inicio']) . "</td>";  
-									echo "<td valign='top'>" . nl2br( $row['data_fim']) . "</td>";  
-									echo "<td valign='top'>" . nl2br( $row['anoBase']) . "</td>";  
-									echo "<td valign='top'><a class='btn btn-warning' href=gerenciamentociclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td>
-                                    <td><a class='btn btn-danger' href=gerenciamentociclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> 
-                                    <td><a class='btn btn-info btn-circle' href=trabalha_listar.php?id_ciclo={$row['id_ciclo']}>+</a></td>"; 
-									echo "</tr>"; 
-									} 
-									echo "</table>"; 
-									?>
-                                    
-									<a href="gerenciamentociclo.php" class="btn btn-success">Novo</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
+                                    <form role="form" action="visita_listar_pendente_semana.php" method='POST'>
+                                        <div class="form-group">
+                                            <label>Agente:</label>
+                                            <select class='form-control' name="agente_id_agente">
+                                            <?php
+                                                include('conecta.php');
+                                                $result = mysql_query("SELECT * FROM `agente`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_agente'] ."'> ". $row['nome'] ." </option>";
+                                                }
+                                            ?>
+                                            </select>
+                                            <label>Semana</label>
+                                            <input class="form-control" name="semana">
+                                            <input type="hidden" name="pendencia" value="F">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Procurar</button>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
     </div>
+        <!-- /conteudocentral -->
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
@@ -195,7 +195,7 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="js/demo/dashboard-demo.js"></script>
-    
+
 </body>
 
 </html>

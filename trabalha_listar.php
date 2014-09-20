@@ -110,7 +110,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -136,35 +148,45 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    
-                                        <div class="form-group">
-                                            <?php 
-                                                include('conecta.php'); 
-                                                echo "<table class='table table-striped table-hover'>"; 
-                                                echo "<tr>";  
-                                                echo "<td><b>Agente</b></td>";
-                                                echo "<td><b>Bairro</b></td>"; 
-                                                echo "<td><b>Quadras</b></td>";
-                                                echo "<td></td>";
-                                                echo "<td></td>";
-                                                echo "</tr>"; 
-                                                $result = mysql_query("SELECT * FROM `trabalha`") or trigger_error(mysql_error()); 
-                                                while($row = mysql_fetch_array($result)){ 
-                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
-                                                echo "<tr>";    
-                                                echo "<td valign='top'>" . nl2br( $row['agente_id_agente']) . "</td>";  
-                                                echo "<td valign='top'>" . nl2br( $row['quadra_bairro_id_bairro']) . "</td>";
-                                                echo "<td valign='top'>" . nl2br( $row['quadra_id_quadra']) . "</td>";
-                                                echo "<td colspan='2' align='right' valign='top'>
-                    <a class='btn btn-warning btn-xs' href=trabalha_editar.php?id_trabalha={$row['id_trabalha']}> Editar </a>
-                    <a class='btn btn-danger btn-xs' href=trabalha_deletar.php?id_trabalha={$row['id_trabalha']}> Excluir </a></td> "; 
-                                                echo "</tr>"; 
-                                                } 
-                                                echo "</table>"; 
-                                                ?>
-                                        </div>
-                                       <a href="trabalha.php" class="btn btn-success">Adicionar</a> 
+                                <div class="col-lg-6">                                    
+                                    <div class="form-group">
+                                        <?php
+                                            
+                                            if(isset($_GET['id_ciclo'])){                
+                                                $ciclo = $_GET['id_ciclo'];
+                                            }
+                                            if(isset($_POST['id_ciclo'])){
+                                                $ciclo = $_POST['id_ciclo'];
+                                            }
+
+                                            
+                                            echo "<table class='table table-striped table-hover'>"; 
+                                            echo "<tr>";  
+                                            echo "<td><b>Agente</b></td>";
+                                            echo "<td><b>Bairro</b></td>"; 
+                                            echo "<td><b>Quadras</b></td>";
+                                            echo "<td></td>";
+                                            echo "<td></td>";
+                                            echo "</tr>"; 
+                            $result = mysql_query("SELECT * FROM trabalha as t
+                            inner join agente as a on t.agente_id_agente = a.id_agente
+                            inner join quadra as q on t.quadra_bairro_id_bairro = q.bairro_id_bairro
+                            and t.quadra_id_quadra = q.id_quadra
+                            inner join bairro as b on q.bairro_id_bairro = b.id_bairro
+                            WHERE ciclo_id_ciclo='".$ciclo."'") or trigger_error(mysql_error()); 
+                            while($row = mysql_fetch_array($result)){ 
+                            foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
+                                            echo "<tr>";    
+                                            echo "<td valign='top'>" . nl2br( $row['nome']) . "</td>";  
+                                            echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";
+                                            echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";
+                                            echo "<td colspan='2' align='right' valign='top'><a class='btn btn-danger btn-xs' href=trabalha_deletar.php?id_trabalha={$row['id_trabalha']}&id_ciclo=".$ciclo."> Excluir </a></td> "; 
+                                            echo "</tr>"; 
+                                            } 
+                                            echo "</table>"; 
+                                       ?>
+                                    </div>
+                                       <?php echo "<a href='trabalha.php?id_ciclo=$ciclo' class='btn btn-success'>Adicionar</a> ";?>
                                     
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

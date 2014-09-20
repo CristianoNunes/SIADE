@@ -107,7 +107,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -123,31 +135,56 @@
     </div>
     <!-- /#wrapper -->
     <div id="page-wrapper">
+    <br />
+    <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Editar Imóvel
+                     </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
         <? 
             include('conecta.php'); 
-            if (isset($_GET['id']) ) { 
-            $id = (int) $_GET['id']; 
+            if (isset($_GET['id_imovel']) ) { 
+            $id_imovel = (int) $_GET['id_imovel']; 
             if (isset($_POST['submitted'])) { 
             foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
-            $sql = "UPDATE `ruas` SET  `nome_rua` =  '{$_POST['nome_rua']}'   WHERE `id` = '$id' "; 
+            $sql = "UPDATE `imovel` SET  `quantidade_habitantes` =  '{$_POST['quantidade_habitantes']}' ,  `quantidade_caes` =  '{$_POST['quantidade_caes']}' ,  `quantidade_gatos` =  '{$_POST['quantidade_gatos']}' ,  `numero_imovel` =  '{$_POST['numero_imovel']}' ,  `ladoquadra` =  '{$_POST['ladoquadra']}' ,  `quadra_id_quadra` =  '{$_POST['quadra_id_quadra']}' ,  `quadra_bairro_id_bairro` =  '{$_POST['quadra_bairro_id_bairro']}' ,  `rua_id_rua` =  '{$_POST['rua_id_rua']}' ,  `tipo_imovel_id_tipo_imovel` =  '{$_POST['tipo_imovel_id_tipo_imovel']}'   WHERE `id_imovel` = '$id_imovel' "; 
             mysql_query($sql) or die(mysql_error()); 
-            echo (mysql_affected_rows()) ?   
-                    "<script type='text/javascript'>
-                        window.location.href = 'imovel_listar.php?msg_ok=Alteração salva com sucesso!'
-                    </script>" 
-                    : 
-                    "<script type='text/javascript'>
-                        window.location.href = 'imovel_listar.php?msg_erro=Erro ao salvar!'
-                    </script>";
+            echo (mysql_affected_rows()) ? "Edited row.<br />" : "Nothing changed. <br />"; 
+            echo "<a href='imovel_listar.php'>Back To Listing</a>"; 
             } 
-            $row = mysql_fetch_array ( mysql_query("SELECT * FROM `ruas` WHERE `id` = '$id' ")); 
+            $row = mysql_fetch_array ( mysql_query("SELECT * FROM `imovel` WHERE `id_imovel` = '$id_imovel' ")); 
             ?>
 
-            <form action='' method='POST'> 
-            <p><b>Nome Rua:</b><br /><input type='text' name='nome_rua' value='<?= stripslashes($row['nome_rua']) ?>' /> 
-            <p><input type='submit' value='Edit Row' /><input type='hidden' value='1' name='submitted' /> 
+            <form action='' method='POST'>
+            <p><b>Bairro:</b><br /><input type='text' name='quadra_bairro_id_bairro' value='<?= stripslashes($row['quadra_bairro_id_bairro']) ?>' />
+            <p><b>Quadra:</b><br /><input type='text' name='quadra_id_quadra' value='<?= stripslashes($row['quadra_id_quadra']) ?>' /> 
+            <p><b>Lado:</b><br /><input type='text' name='ladoquadra' value='<?= stripslashes($row['ladoquadra']) ?>' />
+            <p><b>Rua:</b><br /><input type='text' name='rua_id_rua' value='<?= stripslashes($row['rua_id_rua']) ?>' /> 
+            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel' value='<?= stripslashes($row['numero_imovel']) ?>' />
+            <p><b>Tipo Imovel:</b><br /><input type='text' name='tipo_imovel_id_tipo_imovel' value='<?= stripslashes($row['tipo_imovel_id_tipo_imovel']) ?>' />    
+            <p><b>Quantidade Habitantes:</b><br /><input type='text' name='quantidade_habitantes' value='<?= stripslashes($row['quantidade_habitantes']) ?>' /> 
+            <p><b>Quantidade Caes:</b><br /><input type='text' name='quantidade_caes' value='<?= stripslashes($row['quantidade_caes']) ?>' /> 
+            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos' value='<?= stripslashes($row['quantidade_gatos']) ?>' /> 
+            <p><input type='submit' class='btn btn-default' value='Editar' /><input type='hidden' value='1' name='submitted' /> 
             </form> 
-            <? } ?> 
+            <? } ?>
+            </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
     </div>
 
     <!-- Core Scripts - Include with every page -->

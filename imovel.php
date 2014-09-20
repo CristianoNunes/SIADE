@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php 
+function __autoload($class_name){
+    require_once $class_name.".php";
+}
+?>
 <html>
 
 <head>
@@ -21,12 +26,22 @@
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#bairros_id').change(function(){
+                $('#quadras_id').load('ajax_buscar_quadras.php?bairro='+$('#bairros_id').val() );
+
+            });
+        });
+
+    </script>
+
 </head>
 
 <body>
     <?php session_start(); 
     if(isset($_SESSION['auth'])){
-        include 'conecta.php';
+        $obj = Conexao::getInstance();
     }else{
         session_destroy();
         header("LOCATION:index.php?msg_erro=Acesso negado!");
@@ -108,7 +123,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -117,7 +144,7 @@
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-            <!-- /.navbar-static-side -->gerenciamentociclo_listar
+            <!-- /.navbar-static-side -->
         </nav>
 
 
@@ -138,16 +165,46 @@
                                 <div class="col-lg-6">
                                     <form role="form" action='imovel_adicionar.php' method='POST'>
                                         <div class="form-group">
+                                            <p><b>Bairro:</b></p>
+                                            <select class='form-control' name="quadra_bairro_id_bairro" id="bairros_id" style="width: 150px">    
+                                                <?php
+                                                $cidades2 = "SELECT id_bairro, nome_bairro FROM bairro ORDER BY nome_bairro";
+                                                $rs2 = mysql_query($cidades2);
+                                                echo("<option value='' selected>nome</option>");
+                                                while($linha = mysql_fetch_array($rs2,MYSQL_BOTH)) {
+                                                    echo("<option value='".$linha['id_bairro']."'>".$linha['nome_bairro']."</option>");
+                                                }
+                                                ?>
+                                            </select>
+                                            <p><b>Quadras:</b></p>
+                                            <select class='form-control' name="quadra_id_quadra"   id="quadras_id" style="width: 50px">
+
+                                            </select>
+                                            <p><b>Lado:</b><br /><input type='text' name='ladoquadra'/>
+                                            <p><b>Rua:</b>
+                                            <select class='form-control' name="rua_id_rua">
+                                            <?php
+                                                $result = mysql_query("SELECT * FROM `rua`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_rua'] ."'> ". $row['descricao'] ." </option>";
+                                                }
+                                            ?>
+                                            </select>
+                                            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel'/>
+                                            <p><b>Tipo Imovel:</b>
+                                            <select class='form-control' name="tipo_imovel_id_tipo_imovel" style="width: 60px">
+                                            <?php
+                                                $result = mysql_query("SELECT * FROM `tipo_imovel`") or trigger_error(mysql_error()); 
+                                                while($row = mysql_fetch_array($result)){ 
+                                                foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
+                                                echo "<option value='". $row['id_tipo_imovel'] ."'> ". $row['sigla'] ." </option>";
+                                                }
+                                            ?>
+                                            </select>
                                             <p><b>Quantidade Habitantes:</b><br /><input type='text' name='quantidade_habitantes'/> 
                                             <p><b>Quantidade Caes:</b><br /><input type='text' name='quantidade_caes'/> 
-                                            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos'/> 
-                                            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel'/> 
-                                            <p><b>Ladoquadra:</b><br /><input type='text' name='ladoquadra'/> 
-                                            <p><b>Quadra Bairro Id:</b><br /><input type='text' name='Quadra_Bairro_id'/> 
-                                            <p><b>Quadra Id Quadra:</b><br /><input type='text' name='quadra_id_quadra'/> 
-                                            <p><b>Quadra Bairro Id Bairro:</b><br /><input type='text' name='quadra_bairro_id_bairro'/> 
-                                            <p><b>Rua Id Rua:</b><br /><input type='text' name='rua_id_rua'/> 
-                                            <p><b>Tipo Imovel Id Tipo Imovel:</b><br /><input type='text' name='tipo_imovel_id_tipo_imovel'/>
+                                            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos'/>
                                         </div>
                                         <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
                                     </form>
@@ -163,7 +220,6 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
-        </form> 
     </div>
 
     <!-- Core Scripts - Include with every page -->

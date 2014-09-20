@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php 
+function __autoload($class_name){
+    require_once $class_name.".php";
+}
+?>
 <html>
 
 <head>
@@ -26,7 +31,7 @@
 <body>
     <?php session_start(); 
     if(isset($_SESSION['auth'])){
-        include 'conecta.php';
+        $obj = Conexao::getInstance();
     }else{
         session_destroy();
         header("LOCATION:index.php?msg_erro=Acesso negado!");
@@ -92,7 +97,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="gerenciamentociclo_listar.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
+                            <a href="gerenciamentociclo.php"><i class="fa fa-dashboard fa-fw"></i> Gerenciamento de Ciclo</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Relatórios<span class="fa arrow"></span></a>
@@ -107,7 +112,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -139,7 +156,7 @@
                                             <p><b>Campanha:</b>
                                             <select class='form-control' name="campanha_id_campanha">
                                             <?php
-                                                include('conecta.php');
+                                                
                                                 $result = mysql_query("SELECT * FROM `campanha`") or trigger_error(mysql_error()); 
                                                 while($row = mysql_fetch_array($result)){ 
                                                 foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
@@ -173,10 +190,10 @@
 
                                             ?>
                                             </select>
-                                        <br />
-                                        <input type='submit' class="btn btn-success" value=' Salvar ' />
+
+                                        <p><input type='submit' class='btn btn-default' value=' Salvar ' />
                                         <input type='hidden' value='1' name='submitted' />
-                                        <input type='reset' class='btn btn-default' value=' Limpar ' /> 
+                                        <input type='reset' class='btn btn-default' value=' Limpar ' /></p> 
                                         </div>
 
                                     </form>

@@ -107,7 +107,19 @@
                                     <a href="ciclo.php">Ciclo</a>
                                 </li>
                                 <li>
-                                    <a href="pendentes.php">Pendentes</a>
+                                    <a href="#">Pendentes <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="pendentedia.php">Dia</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendentesemana.php">Semana</a>
+                                        </li>
+                                        <li>
+                                            <a href="pendenteciclo.php">Ciclo</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -124,10 +136,15 @@
     <!-- /#wrapper -->
     <div id="page-wrapper">
     	<br />
-    	<div class="panel panel-default">
-    		<div class="panel panel-heading">
-    			Editar
-    		</div>
+        <div class="row">
+            <div class="col-lg-12">
+    	       <div class="panel panel-default">
+    		      <div class="panel panel-heading">
+    			     Editar
+    		      </div>
+                  <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
             <?php 
                 include('conecta.php'); 
                 if (isset($_GET['id_ciclo']) ) { 
@@ -156,8 +173,12 @@
                 <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
                 </form> 
                 <?php } ?> 
- 
+            </div>
+            </div>
+            </div>
+            </div>
         </div>
+    </div>
     </div>
 
     <!-- Core Scripts - Include with every page -->
