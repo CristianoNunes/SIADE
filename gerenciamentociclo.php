@@ -21,6 +21,8 @@
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <script src="js/valida.js"></script>
+
 </head>
 
 <body>
@@ -147,14 +149,20 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action='gerenciamentociclo_adicionar.php' method='POST'>
+                                    <form onsubmit="return validaciclo()" role="form" action='gerenciamentociclo_adicionar.php' method='POST'>
                                         <div class="form-group"> 
-                                        <p><b>Data Inicio:</b><br /><input type='text' name='data_inicio'/> 
-                                        <p><b>Data Fim:</b><br /><input type='text' name='data_fim'/> 
-                                        <p><b>Numero:</b><br /><input type='text' name='numero'/> 
-                                        <p><b>Ano:</b><br /><input type='text' name='anoBase'/>
+                                        <p><b>Data Inicio:</b><br />
+                                        <input onblur='data(this.form)' maxlength='10' placeholder="aaaa-mm-dd" class="form-control" type='text' name='data_inicio'/> 
+                                        <p><b>Data Fim:</b><br />
+                                        <input onblur='data(this.form)' maxlength='10' placeholder="aaaa-mm-dd" class="form-control" type='text' name='data_fim'/> 
+                                        <p><b>Numero:</b><br />
+                                        <input class="form-control" type='text' name='numero'/> 
+                                        <p><b>Ano:</b><br />
+                                        <input placeholder="aaaa" class="form-control" type='text' name='anoBase'/>
                                         </div>
-                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' />
+                                        <p><input type='submit' class='btn btn-default' value=' Salvar ' />
+                                        <input type='hidden' value='1' name='submitted' />
+                                        <input type='reset' class='btn btn-default' value=' Limpar ' /></p>
                                     </form> 
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

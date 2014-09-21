@@ -170,10 +170,17 @@ function __autoload($class_name){
                                             <input class='form-control' type='text' name='barra'/> 
                                             <p><b>Nome:</b>
                                             <input class='form-control' type='text' name='nome'/> 
+                                            
+                                            <table width="550px">
+                                            <tr><td>
                                             <p><b>Telefone:</b>
-                                            <input placeholder='XX XXXXXXXX' onblur='tel(this.form)' maxlength='11' class='form-control' type='text' name='telefone'/> 
+                                            <input style="width: 130px" placeholder='XX XXXXXXXX' onblur='tel(this.form)' maxlength='11' class='form-control' type='text' name='telefone'/> 
+                                            </td><td>
                                             <p><b>Celular:</b>
-                                            <input placeholder='XX XXXXXXXX' onblur='cel(this.form)' maxlength='11' class='form-control' type='text' name='celular'/> 
+                                            <input style="width: 130px" placeholder='XX XXXXXXXX' onblur='cel(this.form)' maxlength='11' class='form-control' type='text' name='celular'/> 
+                                            </td></tr>
+                                            </table>
+
                                             <p><b>Login:</b>
                                             <input class='form-control' type='text' name='login'/> 
                                             <p><b>Senha:</b>

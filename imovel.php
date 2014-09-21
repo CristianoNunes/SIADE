@@ -36,6 +36,28 @@ function __autoload($class_name){
 
     </script>
 
+    <script type="text/javascript">
+        function valida() {
+            if(document.form.bairro_bairro_id_bairro.value == '') {
+                document.form.bairro_bairro_id_bairro.focus();
+                return false;
+            }
+            if(document.form.quadra_id_quadra.value == '') {
+                document.form.quadra_id_quadra.focus();
+                return false;
+            }
+            if(document.form.ladoquadra.value == '') {
+                document.form.ladoquadra.focus();
+                return false;
+            }
+            if(document.form.rua_id_rua.value == '') {
+                document.form.rua_id_rua.focus();
+                return false;
+            }
+
+        }
+    </script>>
+
 </head>
 
 <body>
@@ -163,37 +185,53 @@ function __autoload($class_name){
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form" action='imovel_adicionar.php' method='POST'>
+                                    <form onsubmit="return valida()" name="form" role="form" action='imovel_adicionar.php' method='POST'>
                                         <div class="form-group">
-                                            <p><b>Bairro:</b></p>
-                                            <select class='form-control' name="quadra_bairro_id_bairro" id="bairros_id" style="width: 150px">    
+                                            
+                                            <p><b>Bairro:</b>
+                                            <select class='form-control' name="quadra_bairro_id_bairro" id="bairros_id">    
                                                 <?php
                                                 $cidades2 = "SELECT id_bairro, nome_bairro FROM bairro ORDER BY nome_bairro";
                                                 $rs2 = mysql_query($cidades2);
-                                                echo("<option value='' selected>nome</option>");
+                                                echo("<option value='' selected></option>");
                                                 while($linha = mysql_fetch_array($rs2,MYSQL_BOTH)) {
                                                     echo("<option value='".$linha['id_bairro']."'>".$linha['nome_bairro']."</option>");
                                                 }
                                                 ?>
                                             </select>
-                                            <p><b>Quadras:</b></p>
-                                            <select class='form-control' name="quadra_id_quadra"   id="quadras_id" style="width: 50px">
-
+                                            
+                                            <table width="310px">
+                                            <tr><td>
+                                            <p><b>Quadra:</b>
+                                            <select class='form-control' name="quadra_id_quadra"   id="quadras_id" style="width: 120px">
                                             </select>
-                                            <p><b>Lado:</b><br /><input type='text' name='ladoquadra'/>
+                                            
+                                            </td><td>
+                                            <p><b>Lado:</b>
+                                            <input class="form-control" type='text' name='ladoquadra' style="width: 120px"/>
+                                            </td></tr>
+                                            </table>
+                                            
                                             <p><b>Rua:</b>
                                             <select class='form-control' name="rua_id_rua">
                                             <?php
                                                 $result = mysql_query("SELECT * FROM `rua`") or trigger_error(mysql_error()); 
+                                                echo("<option value='' selected></option>");
                                                 while($row = mysql_fetch_array($result)){ 
                                                 foreach($row AS $key => $value) { $row[$key] = stripslashes($value); }
                                                 echo "<option value='". $row['id_rua'] ."'> ". $row['descricao'] ." </option>";
                                                 }
                                             ?>
                                             </select>
-                                            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel'/>
-                                            <p><b>Tipo Imovel:</b>
-                                            <select class='form-control' name="tipo_imovel_id_tipo_imovel" style="width: 60px">
+                                            
+                                            <table width="310px">
+                                            <tr><td>
+                                            <p><b>Número:</b>
+                                            <input class="form-control" type='text' name='numero_imovel' style="width: 120px"/>
+                                            
+                                            </td><td>
+                                            <p><b>Tipo:</b>
+                                            <select class='form-control' name="tipo_imovel_id_tipo_imovel" style="width: 120px">
                                             <?php
                                                 $result = mysql_query("SELECT * FROM `tipo_imovel`") or trigger_error(mysql_error()); 
                                                 while($row = mysql_fetch_array($result)){ 
@@ -202,11 +240,27 @@ function __autoload($class_name){
                                                 }
                                             ?>
                                             </select>
-                                            <p><b>Quantidade Habitantes:</b><br /><input type='text' name='quantidade_habitantes'/> 
-                                            <p><b>Quantidade Caes:</b><br /><input type='text' name='quantidade_caes'/> 
-                                            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos'/>
+                                            </td></tr>
+                                            </table>
+                                            
+                                            <table width="600px">
+                                            <tr><td>
+                                            <p><b>Nº de Habitantes:</b>
+                                            <input class="form-control" type='text' name='quantidade_habitantes' style="width: 120px"/> 
+
+                                            </td><td>
+                                            <p><b>Nº de Cães:</b>
+                                            <input class="form-control" type='text' name='quantidade_caes' style="width: 120px"/> 
+                                            
+                                            </td><td>
+                                            <p><b>Nº de Gatos:</b>
+                                            <input class="form-control" type='text' name='quantidade_gatos' style="width: 120px"/>
+                                            </td></tr>
+                                            </table>
                                         </div>
-                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
+                                        <p><input type='submit' class='btn btn-default' value=' Salvar ' />
+                                            <input type='hidden' value='1' name='submitted' />
+                                            <input type='reset' class='btn btn-default' value=' Limpar ' /> 
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

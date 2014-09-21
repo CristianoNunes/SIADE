@@ -188,12 +188,24 @@
                     echo "<td valign='top'>" . nl2br( $row['login']) . "</td>";    
                     echo "<td colspan='2' align='right' valign='top'>
                     <a class='btn btn-warning btn-xs' href=agente_editar.php?id={$row['id_agente']}> Editar </a>
+                    <input type='button' class='btn btn-danger btn-xs' onclick='exclui()' value=' Excluir '></input>
                     <a class='btn btn-danger btn-xs' href=agente_listar.php?id={$row['id_agente']}> Excluir </a></td> ";   
                     echo "</tr>"; 
                     } 
                     echo "</table>"; 
                     ?>
                     <a href="agente.php" class="btn btn-success">Adicionar</a>
+                    <SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+                        function exclui() {
+                            decisao = confirm("Deseja realmente excluir?");
+                            if (decisao){
+                                window.location.href = 'agente_deletar.php?id=".$_GET['id']."';
+                            }else{
+                                alert ("Você clicou no botão CANCELAR,\n"+
+                                "porque foi retornado o valor: "+decisao);
+                            }
+                        }
+                    </SCRIPT>
                     </div>
                 </div>
             </div>

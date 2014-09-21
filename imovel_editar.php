@@ -161,16 +161,52 @@
             ?>
 
             <form action='' method='POST'>
-            <p><b>Bairro:</b><br /><input type='text' name='quadra_bairro_id_bairro' value='<?= stripslashes($row['quadra_bairro_id_bairro']) ?>' />
-            <p><b>Quadra:</b><br /><input type='text' name='quadra_id_quadra' value='<?= stripslashes($row['quadra_id_quadra']) ?>' /> 
-            <p><b>Lado:</b><br /><input type='text' name='ladoquadra' value='<?= stripslashes($row['ladoquadra']) ?>' />
-            <p><b>Rua:</b><br /><input type='text' name='rua_id_rua' value='<?= stripslashes($row['rua_id_rua']) ?>' /> 
-            <p><b>Numero Imovel:</b><br /><input type='text' name='numero_imovel' value='<?= stripslashes($row['numero_imovel']) ?>' />
-            <p><b>Tipo Imovel:</b><br /><input type='text' name='tipo_imovel_id_tipo_imovel' value='<?= stripslashes($row['tipo_imovel_id_tipo_imovel']) ?>' />    
-            <p><b>Quantidade Habitantes:</b><br /><input type='text' name='quantidade_habitantes' value='<?= stripslashes($row['quantidade_habitantes']) ?>' /> 
-            <p><b>Quantidade Caes:</b><br /><input type='text' name='quantidade_caes' value='<?= stripslashes($row['quantidade_caes']) ?>' /> 
-            <p><b>Quantidade Gatos:</b><br /><input type='text' name='quantidade_gatos' value='<?= stripslashes($row['quantidade_gatos']) ?>' /> 
-            <p><input type='submit' class='btn btn-default' value='Editar' /><input type='hidden' value='1' name='submitted' /> 
+            <p><b>Bairro:</b>
+            <input class="form-control" type='text' name='quadra_bairro_id_bairro' value='<?= stripslashes($row['quadra_bairro_id_bairro']) ?>' />
+            
+            <table width="310">
+            <tr><td>
+            <p><b>Quadra:</b>
+            <input style="width: 120px" class="form-control" type='text' name='quadra_id_quadra' value='<?= stripslashes($row['quadra_id_quadra']) ?>' /> 
+            
+            </td><td>
+            <p><b>Lado:</b>
+            <input style="width: 120px" class="form-control" type='text' name='ladoquadra' value='<?= stripslashes($row['ladoquadra']) ?>' />
+            </td></tr>
+            </table>
+
+            <p><b>Rua:</b>
+            <input class="form-control" type='text' name='rua_id_rua' value='<?= stripslashes($row['rua_id_rua']) ?>' /> 
+            
+            <table width="310px">
+            <tr><td>
+            <p><b>Número:</b>
+            <input style="width: 120px" class="form-control" type='text' name='numero_imovel' value='<?= stripslashes($row['numero_imovel']) ?>' />
+            </td><td>
+
+            <p><b>Tipo:</b>
+            <input style="width: 120px" class="form-control" type='text' name='tipo_imovel_id_tipo_imovel' value='<?= stripslashes($row['tipo_imovel_id_tipo_imovel']) ?>' />    
+            </td></tr>
+            </table>
+
+            <table width="600px">
+            <tr><td>
+            <p><b>Nº de Habitantes:</b>
+            <input style="width: 120px" class="form-control" type='text' name='quantidade_habitantes' value='<?= stripslashes($row['quantidade_habitantes']) ?>' /> 
+            
+            </td><td>
+            <p><b>Nº de Cães:</b>
+            <input style="width: 120px" class="form-control" type='text' name='quantidade_caes' value='<?= stripslashes($row['quantidade_caes']) ?>' /> 
+            
+            </td><td>
+            <p><b>Nº de Gatos:</b>
+            <input style="width: 120px" class="form-control" type='text' name='quantidade_gatos' value='<?= stripslashes($row['quantidade_gatos']) ?>' /> 
+            </td></tr>
+            </table>
+
+            <p><input type='submit' class='btn btn-default' value='Editar' />
+            <input type='hidden' value='1' name='submitted' /> 
+            <a href='imovel_listar.php' class='btn btn-default'> Voltar </a>
             </form> 
             <? } ?>
             </div>

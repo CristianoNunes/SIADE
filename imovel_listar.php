@@ -167,19 +167,19 @@
         <?php 
             include('conecta.php'); 
             echo "<table class='table table-striped table-hover'>"; 
-            echo "<tr>"; 
-            echo "<td><b>Bairro</b></td>";
-            echo "<td><b>Quadra</b></td>"; 
-            echo "<td><b>Lado</b></td>";
-            echo "<td><b>Rua</b></td>"; 
-            echo "<td><b>Numero Imovel</b></td>"; 
-            echo "<td><b>Tipo Imovel</b></td>"; 
-            echo "<td><b>Quantidade Habitantes</b></td>"; 
-            echo "<td><b>Quantidade Cães</b></td>"; 
-            echo "<td><b>Quantidade Gatos</b></td>";
-            echo "<td></td>";
-            echo "<td></td>";
-            echo "</tr>"; 
+            echo "<thead>"; 
+            echo "<th><b>Bairro</b></th>";
+            echo "<th><b>Quadra</b></th>"; 
+            echo "<th><b>Lado</b></th>";
+            echo "<th><b>Rua</b></th>"; 
+            echo "<th><b>Nº</b></th>"; 
+            echo "<th><b>Tipo</b></th>"; 
+            echo "<th><b>Habitantes</b></th>"; 
+            echo "<th><b>Cães</b></th>"; 
+            echo "<th><b>Gatos</b></th>";
+            echo "<th></td>";
+            echo "<th></td>";
+            echo "</thead>"; 
             $result = mysql_query("SELECT * FROM `imovel` as i
             inner join quadra as q on i.quadra_bairro_id_bairro = q.bairro_id_bairro
             and i.quadra_id_quadra = q.id_quadra

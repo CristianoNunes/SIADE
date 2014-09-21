@@ -55,3 +55,20 @@ function cel(c) {
 	}
 	c.celular.value = "("+ddd+") "+part1+"-"+part2;
 }
+
+function data(d) {
+    if (d.data_inicio.value.length<8) {
+        d.data_inicio.focus();
+    }else{
+        ano = d.data_inicio.value.substring(0,4);
+        if (d.telefone.value.length==8) {
+            mes = d.data_inicio.value.substring(5,6);
+            dia = d.data_inicio.value.substring(7,8);
+        }
+        if (d.telefone.value.length==10) {
+            mes = d.data_inicio.value.substring(5,7);
+            dia = d.data_inicio.value.substring(7,10);
+        }
+        d.data_inicio.value = ano+"-"+mes+"-"+dia;
+    }
+}

@@ -164,9 +164,10 @@
 									echo "<td valign='top'>" . nl2br( $row['data_inicio']) . "</td>";  
 									echo "<td valign='top'>" . nl2br( $row['data_fim']) . "</td>";  
 									echo "<td valign='top'>" . nl2br( $row['anoBase']) . "</td>";  
-									echo "<td valign='top'><a class='btn btn-warning' href=gerenciamentociclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td>
-                                    <td><a class='btn btn-danger' href=gerenciamentociclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> 
-                                    <td><a class='btn btn-info btn-circle' href=trabalha_listar.php?id_ciclo={$row['id_ciclo']}>+</a></td>"; 
+									echo "<td valign='top'>
+                                    <a class='btn btn-warning btn-xs' href=gerenciamentociclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td>
+                                    <td><a class='btn btn-danger btn-xs' href=gerenciamentociclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> 
+                                    <td><a class='btn btn-info btn-circle btn-xs' href=trabalha_listar.php?id_ciclo={$row['id_ciclo']}>+</a></td>"; 
 									echo "</tr>"; 
 									} 
 									echo "</table>"; 
