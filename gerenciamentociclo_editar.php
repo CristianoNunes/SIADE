@@ -143,12 +143,13 @@
     			     Editar
     		      </div>
                   <div class="panel-body">
+
                             <div class="row">
                                 <div class="col-lg-6">
             <?php 
                 include('conecta.php'); 
-                if (isset($_GET['id_ciclo']) ) { 
-                $id_ciclo = (int) $_GET['id_ciclo']; 
+                if (isset($_GET['id']) ) { 
+                $id_ciclo = (int) $_GET['id']; 
                 if (isset($_POST['submitted'])) { 
                 foreach($_POST AS $key => $value) { $_POST[$key] = mysql_real_escape_string($value); } 
                 $sql = "UPDATE `ciclo` SET  `data_inicio` =  '{$_POST['data_inicio']}' ,  `data_fim` =  '{$_POST['data_fim']}' ,  `numero` =  '{$_POST['numero']}' ,  `anoBase` =  '{$_POST['anoBase']}'   WHERE `id_ciclo` = '$id_ciclo' "; 
@@ -166,11 +167,16 @@
             ?>
 
                 <form action='' method='POST'>
-                <p><b>Data Inicio:</b><br /><input type='text' name='data_inicio' value='<?= stripslashes($row['data_inicio']) ?>' /> 
-                <p><b>Data Fim:</b><br /><input type='text' name='data_fim' value='<?= stripslashes($row['data_fim']) ?>' /> 
-                <p><b>Numero:</b><br /><input type='text' name='numero' value='<?= stripslashes($row['numero']) ?>' /> 
-                <p><b>AnoBase:</b><br /><input type='text' name='anoBase' value='<?= stripslashes($row['anoBase']) ?>' /> 
-                <p><input type='submit' class="btn btn-success" value='Salvar' /><input type='hidden' value='1' name='submitted' /> 
+                <p><b>Data Inicio:</b>
+                <input class="form-control" placeholder="aaaa-mm-dd" type='text' name='data_inicio' value='<?= stripslashes($row['data_inicio']) ?>' /> 
+                <p><b>Data Fim:</b>
+                <input class="form-control" placeholder="aaaa-mm-dd" type='text' name='data_fim' value='<?= stripslashes($row['data_fim']) ?>' /> 
+                <p><b>Numero:</b>
+                <input class="form-control" type='text' name='numero' value='<?= stripslashes($row['numero']) ?>' /> 
+                <p><b>AnoBase:</b>
+                <input class="form-control" type='text' name='anoBase' value='<?= stripslashes($row['anoBase']) ?>' /> 
+                <p><input class="btn btn-success" type='submit' value='Salvar' name='submitted' /> 
+                <a href='gerenciamentociclo_listar.php' class='btn btn-default'> Voltar </a> 
                 </form> 
                 <?php } ?> 
             </div>

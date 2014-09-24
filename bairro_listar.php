@@ -160,10 +160,10 @@
                         echo $_GET['msg_erro'];
                         echo "</div>";
                     }else if(isset($_GET['id'])){
-                        echo "<div id='info'>";
-                        echo "Deseja realmente excluir? 
-                            <a href='bairro_deletar.php?id=".$_GET['id']."'class='btn btn-success'> Sim </a>
-                            <a href='bairro_listar.php?' class='btn btn-danger'> Não </a>";
+                        echo "<div class='alert alert-info' id='info'>";
+                        echo "Todas as quadras desse bairro serão excluídas. Deseja realmente excluir? 
+                            <a href='bairro_deletar.php?id=".$_GET['id']."'class='btn btn-success btn-xs'> Sim </a>
+                            <a href='bairro_listar.php?' class='btn btn-danger btn-xs'> Não </a>";
                         echo "</div>";
                     }
                 ?>

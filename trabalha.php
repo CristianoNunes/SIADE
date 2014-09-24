@@ -201,7 +201,9 @@
                                             <input type='hidden' value='<?php echo $ciclo; ?>' name='ciclo_id_ciclo' />
                                             <input type='hidden' value='<?php echo $ciclo; ?>' name='id_ciclo' />
                                         </div>
-                                        <button type="submit" class="btn btn-success" name="adicionar">Salvar</button><input type='hidden' value='1' name='submitted' /> 
+                                        <input type='submit' class='btn btn-default' value=' Salvar ' />
+                                        <input type='hidden' value='1' name='submitted' />
+                                        <input type='reset' class='btn btn-default' value=' Limpar ' /> 
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->

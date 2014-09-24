@@ -141,21 +141,42 @@
                             Gerenciamento de Ciclo
                         </div>
                         <div class="panel-body">
+
+                            <?php
+                                if(isset($_GET['msg_ok'])){
+                                    echo "<div class='alert alert-success'>
+                                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                                    echo $_GET['msg_ok'];
+                                    echo "</div>";
+                                }else if(isset($_GET['msg_erro'])){
+                                    echo "<div class='alert alert-warning'>
+                                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                                    echo $_GET['msg_erro'];
+                                    echo "</div>";
+                                }else if(isset($_GET['id'])){
+                                    echo "<div class='alert alert-info' id='info'>";
+                                    echo "Todos as visitas desse cíclo serão excluídas. Deseja realmente excluir? 
+                                        <a href='gerenciamentociclo_deletar.php?id=".$_GET['id']."'class='btn btn-success btn-xs'> Sim </a>
+                                        <a href='gerenciamentociclo_listar.php?' class='btn btn-danger btn-xs'> Não </a>";
+                                    echo "</div>";
+                                }
+                            ?>
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     
 						        <?php 
 									include('conecta.php'); 
-									echo "<table class='table table-striped'>"; 
-									echo "<tr>"; 
-									echo "<td><b>Ciclo</b></td>";
-									echo "<td><b>Data Inicio</b></td>"; 
-									echo "<td><b>Data Fim</b></td>"; 
-									echo "<td><b>Ano</b></td>";
+									echo "<table class='table table-striped table-hover'>"; 
+									echo "<thead>"; 
+									echo "<th><b>Ciclo</b></th>";
+									echo "<th><b>Data Inicio</b></th>"; 
+									echo "<th><b>Data Fim</b></th>"; 
+									echo "<th><b>Ano</b></th>";
 									echo "<td></td>";
 									echo "<td></td>";
                                     echo "<td></td>";
-									echo "</tr>"; 
+									echo "</thead>"; 
 									$result = mysql_query("SELECT * FROM `ciclo` ORDER BY `numero` ASC ") or trigger_error(mysql_error()); 
 									while($row = mysql_fetch_array($result)){ 
 									foreach($row AS $key => $value) { $row[$key] = stripslashes($value); } 
@@ -165,8 +186,8 @@
 									echo "<td valign='top'>" . nl2br( $row['data_fim']) . "</td>";  
 									echo "<td valign='top'>" . nl2br( $row['anoBase']) . "</td>";  
 									echo "<td valign='top'>
-                                    <a class='btn btn-warning btn-xs' href=gerenciamentociclo_editar.php?id_ciclo={$row['id_ciclo']}>Editar</a></td>
-                                    <td><a class='btn btn-danger btn-xs' href=gerenciamentociclo_deletar.php?id_ciclo={$row['id_ciclo']}>Excluir</a></td> 
+                                    <a class='btn btn-warning btn-xs' href=gerenciamentociclo_editar.php?id={$row['id_ciclo']}>Editar</a></td>
+                                    <td><a class='btn btn-danger btn-xs' href=gerenciamentociclo_listar.php?id={$row['id_ciclo']}>Excluir</a></td> 
                                     <td><a class='btn btn-info btn-circle btn-xs' href=trabalha_listar.php?id_ciclo={$row['id_ciclo']}>+</a></td>"; 
 									echo "</tr>"; 
 									} 

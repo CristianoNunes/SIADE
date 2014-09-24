@@ -168,7 +168,8 @@
         ?>
 
             <form action='' method='POST'> 
-            <p><b>Rua:</b><input class="form-control" type='text' name='descricao' value='<?= stripslashes($row['descricao']) ?>' /> 
+            <p><b>Rua:</b>
+            <input class="form-control" type='text' name='descricao' value='<?= stripslashes($row['descricao']) ?>' /> 
             <p><input class="btn btn-success" type='submit' value='Salvar' name='submitted' /> 
             <a href='rua_listar.php' class='btn btn-default'> Voltar </a>
             </form> 

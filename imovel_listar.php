@@ -155,10 +155,10 @@
                         echo $_GET['msg_erro'];
                         echo "</div>";
                     }else if(isset($_GET['id'])){
-                        echo "<div id='info'>";
+                        echo "<div class='alert alert-info' id='info'>";
                         echo "Deseja realmente excluir? 
-                            <a href='imovel_deletar.php?id=".$_GET['id']."'class='btn btn-success'> Sim </a>
-                            <a href='imovel_listar.php?' class='btn btn-danger'> Não </a>";
+                            <a href='imovel_deletar.php?id=".$_GET['id']."'class='btn btn-success btn-xs'> Sim </a>
+                            <a href='imovel_listar.php?' class='btn btn-danger btn-xs'> Não </a>";
                         echo "</div>";
                     }
                 ?>
@@ -201,7 +201,7 @@
             echo "<td valign='top'>" . nl2br( $row['quantidade_gatos']) . "</td>";  
             echo "<td colspan='2' align='right' valign='top'>
                     <a class='btn btn-warning btn-xs' href=imovel_editar.php?id_imovel={$row['id_imovel']}> Editar </a>
-                    <a class='btn btn-danger btn-xs' href=imovel_deletar.php?id_imovel={$row['id_imovel']}> Excluir </a></td> "; 
+                    <a class='btn btn-danger btn-xs' href=imovel_listar.php?id={$row['id_imovel']}> Excluir </a></td> "; 
             echo "</tr>"; 
             } 
             echo "</table>"; 

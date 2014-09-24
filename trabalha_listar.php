@@ -147,6 +147,27 @@
                             Gerenciamento de Ciclo - Divisão
                         </div>
                         <div class="panel-body">
+
+                            <?php
+                                if(isset($_GET['msg_ok'])){
+                                    echo "<div class='alert alert-success'>
+                                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                                    echo $_GET['msg_ok'];
+                                    echo "</div>";
+                                }else if(isset($_GET['msg_erro'])){
+                                    echo "<div class='alert alert-warning'>
+                                        <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>";
+                                    echo $_GET['msg_erro'];
+                                    echo "</div>";
+                                }else if(isset($_GET['id_trabalha'])){
+                                    echo "<div class='alert alert-info' id='info'>";
+                                    echo "Deseja realmente excluir? 
+                                        <a href='trabalha_deletar.php?id_ciclo=".$_GET['id_ciclo']."&id_trabalha=".$_GET['id_trabalha']."&'class='btn btn-success btn-xs'> Sim </a>
+                                        <a href='trabalha_listar.php?id_ciclo=".$_GET['id_ciclo']."' class='btn btn-danger btn-xs'> Não </a>";
+                                    echo "</div>";
+                                }
+                            ?>
+
                             <div class="row">
                                 <div class="col-lg-6">                                    
                                     <div class="form-group">
@@ -161,13 +182,13 @@
 
                                             
                                             echo "<table class='table table-striped table-hover'>"; 
-                                            echo "<tr>";  
-                                            echo "<td><b>Agente</b></td>";
-                                            echo "<td><b>Bairro</b></td>"; 
-                                            echo "<td><b>Quadras</b></td>";
+                                            echo "<thead>";  
+                                            echo "<th><b>Agente</b></th>";
+                                            echo "<th><b>Bairro</b></th>"; 
+                                            echo "<th><b>Quadras</b></th>";
                                             echo "<td></td>";
                                             echo "<td></td>";
-                                            echo "</tr>"; 
+                                            echo "</thead>"; 
                             $result = mysql_query("SELECT * FROM trabalha as t
                             inner join agente as a on t.agente_id_agente = a.id_agente
                             inner join quadra as q on t.quadra_bairro_id_bairro = q.bairro_id_bairro
@@ -180,7 +201,9 @@
                                             echo "<td valign='top'>" . nl2br( $row['nome']) . "</td>";  
                                             echo "<td valign='top'>" . nl2br( $row['nome_bairro']) . "</td>";
                                             echo "<td valign='top'>" . nl2br( $row['identificacao']) . "</td>";
-                                            echo "<td colspan='2' align='right' valign='top'><a class='btn btn-danger btn-xs' href=trabalha_deletar.php?id_trabalha={$row['id_trabalha']}&id_ciclo=".$ciclo."> Excluir </a></td> "; 
+                                            echo "<td colspan='2' align='right' valign='top'>
+                                             
+                                            <a class='btn btn-danger btn-xs' href=trabalha_listar.php?id_trabalha={$row['id_trabalha']}&id_ciclo=".$ciclo."> Excluir </a></td> ";
                                             echo "</tr>"; 
                                             } 
                                             echo "</table>"; 
